@@ -1,0 +1,518 @@
+{
+  "cookbook": "Fuel: The Strong90 Kitchen",
+  "standard": "1 serving = one adult portion; macros per serving",
+  "target": "~2000 kcal / ~200g protein per day",
+  "recipe_count": 34,
+  "recipes": [
+    {
+      "title": "Cheat's Gyros",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 1,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 460,
+        "protein": 52,
+        "carbs": 28,
+        "fat": 18
+      },
+      "status": "reportioned",
+      "note": "500g mince = two portions, not one."
+    },
+    {
+      "title": "Creamy Paprika Chicken & Fries",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 627,
+        "protein": 60,
+        "carbs": 3,
+        "fat": 40
+      },
+      "status": "macro_review",
+      "note": "Carbs 3g impossible with fries \u2014 full macro set needs recompute."
+    },
+    {
+      "title": "High Protein Chilli Lime Shrimp Bowls",
+      "category": "lunch",
+      "section": "Lunch",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 597,
+        "protein": 50,
+        "carbs": 70,
+        "fat": 13
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "High-Protein Fat-Loss Pizza",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 2,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 540,
+        "protein": 50,
+        "carbs": 45,
+        "fat": 18
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Garlic Parmesan Chicken Tenders",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 2,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 420,
+        "protein": 48,
+        "carbs": 18,
+        "fat": 16
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "High Protein Crispy Honey Garlic Chicken Fried Rice",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 7,
+      "servings_new": 7,
+      "per_serving": {
+        "kcal": 535,
+        "protein": 47,
+        "carbs": 69,
+        "fat": 8
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Red Lentil Chicken Pizza",
+      "category": "lunch",
+      "section": "Lunch",
+      "servings_old": 2,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 392,
+        "protein": 43,
+        "carbs": 35,
+        "fat": 8
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Protein Steak Wraps with Yoghurt Flatbread",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 396,
+        "protein": 42,
+        "carbs": 22,
+        "fat": 14
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "One-Dish Protein Pancake Bowls",
+      "category": "breakfast",
+      "section": "Breakfast",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 354,
+        "protein": 42,
+        "carbs": 34,
+        "fat": 7
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Chocolate Fudge Brownie Overnight Oats",
+      "category": "breakfast",
+      "section": "Breakfast",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 446,
+        "protein": 41,
+        "carbs": 55,
+        "fat": 9
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Protein Chicken Wraps with Yoghurt Flatbreads",
+      "category": "lunch",
+      "section": "Lunch",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 380,
+        "protein": 40,
+        "carbs": 24,
+        "fat": 13
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Chicken Shawarma",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 600,
+        "protein": 38,
+        "carbs": 52,
+        "fat": 24
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "High Protein SmashBurger Tacos",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 2,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 490,
+        "protein": 38,
+        "carbs": 33,
+        "fat": 21
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Bang Bang Chicken Wraps",
+      "category": "lunch",
+      "section": "Lunch",
+      "servings_old": 5,
+      "servings_new": 5,
+      "per_serving": {
+        "kcal": 350,
+        "protein": 36,
+        "carbs": 42,
+        "fat": 6
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "High-Protein Big Mac Tacos",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 6,
+      "servings_new": 6,
+      "per_serving": {
+        "kcal": 437,
+        "protein": 33,
+        "carbs": 42,
+        "fat": 13
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Pollo al Sesamo (Sesame Chicken)",
+      "category": "dinner",
+      "section": "Dinner",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 400,
+        "protein": 29,
+        "carbs": 41,
+        "fat": 13
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Feta and Tomato Cottage Cheese Bread",
+      "category": "breakfast",
+      "section": "Lighter Bites",
+      "servings_old": 1,
+      "servings_new": 1,
+      "per_serving": {
+        "kcal": 320,
+        "protein": 14,
+        "carbs": 50,
+        "fat": 6
+      },
+      "status": "reposition",
+      "note": "Only 14g protein \u2014 file as lighter, or boost."
+    },
+    {
+      "title": "Cottage Cheese and Banana Bake",
+      "category": "breakfast",
+      "section": "Lighter Bites",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 160,
+        "protein": 14,
+        "carbs": 14,
+        "fat": 6
+      },
+      "status": "reposition",
+      "note": "Light \u2014 sits better as a snack/lighter option."
+    },
+    {
+      "title": "Savoury Egg Bites",
+      "category": "breakfast",
+      "section": "Breakfast",
+      "servings_old": 24,
+      "servings_new": 8,
+      "per_serving": {
+        "kcal": 243,
+        "protein": 27,
+        "carbs": 3,
+        "fat": 12
+      },
+      "status": "reportioned+macro_review",
+      "note": "Serving was 1 bite; set to 3. Per-bite protein looks overstated \u2014 verify."
+    },
+    {
+      "title": "Blueberry Protein Mini Waffles",
+      "category": "breakfast",
+      "section": "Treats",
+      "servings_old": 6,
+      "servings_new": 6,
+      "per_serving": {
+        "kcal": 133,
+        "protein": 6,
+        "carbs": 7,
+        "fat": 10
+      },
+      "status": "reposition+treat",
+      "note": "More fat than protein \u2014 treat, not a protein hit."
+    },
+    {
+      "title": "Healthy Sweet Potato Cereal",
+      "category": "breakfast",
+      "section": "Lighter Bites",
+      "servings_old": 6,
+      "servings_new": 6,
+      "per_serving": {
+        "kcal": 209,
+        "protein": 5,
+        "carbs": 38,
+        "fat": 5
+      },
+      "status": "reposition",
+      "note": "5g protein \u2014 a carb option, not a protein food."
+    },
+    {
+      "title": "Easy Berry Cake",
+      "category": "snack",
+      "section": "Treats",
+      "servings_old": 8,
+      "servings_new": 12,
+      "per_serving": {
+        "kcal": 347,
+        "protein": 7,
+        "carbs": 48,
+        "fat": 14
+      },
+      "status": "reportioned+treat",
+      "note": "520/slice was huge; 12 slices. Indulgent, low protein."
+    },
+    {
+      "title": "My Easy Greek Yoghurt Choc Chip Scone",
+      "category": "snack",
+      "section": "Treats",
+      "servings_old": 1,
+      "servings_new": 1,
+      "per_serving": {
+        "kcal": 330,
+        "protein": 10,
+        "carbs": 56,
+        "fat": 7
+      },
+      "status": "treat",
+      "note": "Scone \u2014 treat."
+    },
+    {
+      "title": "High Protein Biscoff Cheesecake",
+      "category": "snack",
+      "section": "Snacks",
+      "servings_old": 2,
+      "servings_new": 2,
+      "per_serving": {
+        "kcal": 245,
+        "protein": 19,
+        "carbs": 21,
+        "fat": 9
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Crispy Chicken Rice Paper Dumplings",
+      "category": "snack",
+      "section": "Snacks",
+      "servings_old": 6,
+      "servings_new": 6,
+      "per_serving": {
+        "kcal": 179,
+        "protein": 9,
+        "carbs": 12,
+        "fat": 10
+      },
+      "status": "ok",
+      "note": ""
+    },
+    {
+      "title": "Protein Brownies",
+      "category": "snack",
+      "section": "Treats",
+      "servings_old": 16,
+      "servings_new": 16,
+      "per_serving": {
+        "kcal": 178,
+        "protein": 7,
+        "carbs": 14,
+        "fat": 12
+      },
+      "status": "treat",
+      "note": "7g P / 12g fat \u2014 a treat, be honest about it."
+    },
+    {
+      "title": "Broccoli Chicken Fritters",
+      "category": "snack",
+      "section": "Lighter Bites",
+      "servings_old": 14,
+      "servings_new": 7,
+      "per_serving": {
+        "kcal": 320,
+        "protein": 26,
+        "carbs": 4,
+        "fat": 22
+      },
+      "status": "reportioned",
+      "note": "Serving was 1 fritter; set to ~2. High fat \u2014 likely pan-fried."
+    },
+    {
+      "title": "Chicken Spring Rolls",
+      "category": "snack",
+      "section": "Lighter Bites",
+      "servings_old": 24,
+      "servings_new": 6,
+      "per_serving": {
+        "kcal": 640,
+        "protein": 72,
+        "carbs": 28,
+        "fat": 24
+      },
+      "status": "reportioned+macro_review",
+      "note": "Serving was 1 roll; set to ~4. Per-roll protein overstated \u2014 verify."
+    },
+    {
+      "title": "Protein Pesto",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 53,
+        "protein": 4,
+        "carbs": 2,
+        "fat": 3
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    },
+    {
+      "title": "Chick-Fil-A Sauce",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 50,
+        "protein": 3,
+        "carbs": 7,
+        "fat": 1
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    },
+    {
+      "title": "Bang Bang Sauce",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 48,
+        "protein": 3,
+        "carbs": 6,
+        "fat": 1
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    },
+    {
+      "title": "Yum Yum Sauce",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 46,
+        "protein": 3,
+        "carbs": 4,
+        "fat": 2
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    },
+    {
+      "title": "Honey Sriracha Sauce",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 39,
+        "protein": 3,
+        "carbs": 6,
+        "fat": 0
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    },
+    {
+      "title": "Big Mac Sauce",
+      "category": "snack",
+      "section": "Sauces & Condiments",
+      "servings_old": 4,
+      "servings_new": 4,
+      "per_serving": {
+        "kcal": 37,
+        "protein": 3,
+        "carbs": 6,
+        "fat": 1
+      },
+      "status": "condiment",
+      "note": "Per ~2 tbsp \u2014 condiment, not a meal."
+    }
+  ]
+}
