@@ -1,0 +1,7 @@
+{
+  "name": "solihull-rugby-sc",
+  "private": true,
+  "engines": {
+    "node": "18"
+  }
+}
