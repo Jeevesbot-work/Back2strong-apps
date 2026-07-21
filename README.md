@@ -26,15 +26,21 @@ These need clicks in Vercel/Netlify; they can't be done from code alone:
 
 ## Still to bring in (orphans — deployed manually, no repo yet)
 
-These exist only as manual Drop/CLI deploys — their source is **not** in any repo yet.
-Recover each (pull the deployed files, or use originals if saved locally) into `apps/`:
+These exist only as manual Drop/CLI deploys; their source is **not** in any repo.
+They can't be auto-pulled from the Claude sandbox (network policy blocks fetching
+the live sites, and Netlify's API has no file-download). Bring each in **on demand**:
+when you want to work on one, either rebuild it fresh inside `apps/<folder>` or drop
+the original source in — then it's in the monorepo and fully editable.
 
 | Source | What it is | Host | Target folder | Status |
 |---|---|---|---|---|
-| `back2strong.online` | Marketing website | Netlify (CLI) | `apps/website` | to recover |
-| "The Drift Check" | Lead-magnet positions quiz | Netlify (Drop) | `apps/drift-check` | to recover |
-| `milly-5678` | Personal app (daughter) | Netlify | `apps/milly` | optional — confirm |
-| `b2s-command-center` | Admin/command backend | Vercel (CLI) | `apps/` (TBD) | investigate / maybe superseded by `apps/edge/app/admin` |
+| `back2strong.online` | Marketing website | Netlify | `apps/website` | bring in on demand |
+| "The Drift Check" (`back2strong-drift-check`) | Lead-magnet positions quiz | Netlify | `apps/drift-check` | bring in on demand |
+| `milly-5678` | Personal app (daughter) | Netlify | `apps/milly` | **empty deploy** — likely skip |
+| `b2s-command-center` | Admin/command backend | Vercel (CLI) | — | likely superseded by `apps/edge/app/admin` |
+
+Netlify site IDs (for re-pointing later): solihull-rugby `546a5f69-1561-4e0b-9137-c58953ea0ef3`,
+back2strongonline `1cf731c6-4568-41b4-a8f5-6d96d6ccff0c`, drift-check `02efe024-86f3-454f-a3d2-34d2f9ad12f2`.
 
 ## Deploy re-pointing (config, not code — do in dashboards)
 
