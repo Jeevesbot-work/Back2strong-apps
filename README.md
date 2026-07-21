@@ -24,4 +24,22 @@ These need clicks in Vercel/Netlify; they can't be done from code alone:
 - **Netlify (solihull + pricing):** create/repoint each site to this repo with **Base directory → `apps/solihull-rugby`** (and `apps/pricing-calculator`), updating publish/functions paths.
 - **`b2s-command-center`** (a Vercel project with *no* repo — CLI-deployed) still needs its source recovered or rebuilt inside `apps/`.
 
+## Still to bring in (orphans — deployed manually, no repo yet)
+
+These exist only as manual Drop/CLI deploys — their source is **not** in any repo yet.
+Recover each (pull the deployed files, or use originals if saved locally) into `apps/`:
+
+| Source | What it is | Host | Target folder | Status |
+|---|---|---|---|---|
+| `back2strong.online` | Marketing website | Netlify (CLI) | `apps/website` | to recover |
+| "The Drift Check" | Lead-magnet positions quiz | Netlify (Drop) | `apps/drift-check` | to recover |
+| `milly-5678` | Personal app (daughter) | Netlify | `apps/milly` | optional — confirm |
+| `b2s-command-center` | Admin/command backend | Vercel (CLI) | `apps/` (TBD) | investigate / maybe superseded by `apps/edge/app/admin` |
+
+## Deploy re-pointing (config, not code — do in dashboards)
+
+Once source is unified, point each host at this repo + the app's subfolder:
+- **Vercel (edge):** Root Directory → `apps/edge`; move `app.back2strong.online`; then archive `Jeevesbot-work/edge-app`.
+- **Netlify:** each site → Base directory → its `apps/<app>` folder.
+
 See [`CLAUDE.md`](CLAUDE.md) for conventions.
