@@ -1,10 +1,9 @@
+# Netlify config for the Stratford Spraying Solutions pricing calculator.
+# The site publishes the self-contained calculator in ./stratford as its homepage,
+# so the deployed root URL serves stratford/index.html directly.
 [build]
-  publish = "."
+  publish = "stratford"
   command = ""
 
 [build.environment]
   NODE_VERSION = "18"
-
-[functions]
-  directory = "netlify/functions"
-  node_bundler = "esbuild"
