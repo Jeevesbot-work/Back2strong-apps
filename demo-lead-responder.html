@@ -1,0 +1,401 @@
+<style>
+  :root {
+    --bg: #efece5;
+    --surface: #ffffff;
+    --surface-2: #e7e2d8;
+    --ink: #1b1d20;
+    --ink-soft: #55524b;
+    --muted: #8b867c;
+    --line: #d9d3c7;
+    --accent: #e9760a;
+    --accent-soft: #fbe6cf;
+    --on-accent: #ffffff;
+    --success: #1f9a55;
+    --success-soft: #dff3e7;
+    --shadow: 0 20px 50px -24px rgba(20,18,14,0.45);
+    --phone-glow: 0 30px 70px -30px rgba(20,18,14,0.5);
+    --font-disp: "Helvetica Neue", Arial, system-ui, sans-serif;
+    --font-body: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SF Mono", "Cascadia Mono", Menlo, monospace;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #16181b;
+      --surface: #202327;
+      --surface-2: #292d33;
+      --ink: #f3f1ec;
+      --ink-soft: #bcb7ad;
+      --muted: #837e74;
+      --line: #31353c;
+      --accent: #ff921f;
+      --accent-soft: #3a2a12;
+      --on-accent: #17140f;
+      --success: #37c37c;
+      --success-soft: #16281d;
+      --shadow: 0 24px 60px -28px rgba(0,0,0,0.7);
+      --phone-glow: 0 36px 90px -30px rgba(0,0,0,0.75);
+    }
+  }
+  :root[data-theme="light"] {
+    --bg: #efece5; --surface: #ffffff; --surface-2: #e7e2d8; --ink: #1b1d20;
+    --ink-soft: #55524b; --muted: #8b867c; --line: #d9d3c7; --accent: #e9760a;
+    --accent-soft: #fbe6cf; --on-accent: #ffffff; --success: #1f9a55;
+    --success-soft: #dff3e7; --shadow: 0 20px 50px -24px rgba(20,18,14,0.45);
+    --phone-glow: 0 30px 70px -30px rgba(20,18,14,0.5);
+  }
+  :root[data-theme="dark"] {
+    --bg: #16181b; --surface: #202327; --surface-2: #292d33; --ink: #f3f1ec;
+    --ink-soft: #bcb7ad; --muted: #837e74; --line: #31353c; --accent: #ff921f;
+    --accent-soft: #3a2a12; --on-accent: #17140f; --success: #37c37c;
+    --success-soft: #16281d; --shadow: 0 24px 60px -28px rgba(0,0,0,0.7);
+    --phone-glow: 0 36px 90px -30px rgba(0,0,0,0.75);
+  }
+
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: var(--font-body); line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 22px 64px; }
+
+  /* ---- top bar ---- */
+  .topbar { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 40px; }
+  .brand { display: flex; align-items: center; gap: 10px; }
+  .brand .mark {
+    width: 30px; height: 30px; border-radius: 8px; background: var(--accent);
+    display: grid; place-items: center; color: var(--on-accent);
+    font-family: var(--font-disp); font-weight: 800; font-size: 18px; flex-shrink: 0;
+  }
+  .brand .name {
+    font-family: var(--font-disp); font-weight: 800; letter-spacing: 0.14em;
+    text-transform: uppercase; font-size: 12.5px; color: var(--ink);
+  }
+  .theme-btn {
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink-soft);
+    border-radius: 999px; padding: 7px 14px; font-size: 12.5px; cursor: pointer;
+    font-family: var(--font-body); transition: border-color .15s, color .15s;
+  }
+  .theme-btn:hover { border-color: var(--accent); color: var(--ink); }
+
+  /* ---- hero ---- */
+  .hero { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: 44px; align-items: center; }
+  @media (max-width: 860px) { .hero { grid-template-columns: 1fr; gap: 34px; } }
+
+  .eyebrow {
+    font-family: var(--font-mono); font-size: 12px; letter-spacing: 0.06em;
+    text-transform: uppercase; color: var(--accent); margin: 0 0 18px;
+    display: flex; align-items: center; gap: 9px;
+  }
+  .eyebrow::before { content: ""; width: 26px; height: 2px; background: var(--accent); display: inline-block; }
+  h1 {
+    font-family: var(--font-disp); font-weight: 800; letter-spacing: -0.02em;
+    font-size: clamp(30px, 5.4vw, 52px); line-height: 1.02; margin: 0 0 20px;
+    text-wrap: balance;
+  }
+  h1 .hl { color: var(--accent); }
+  .sub { font-size: clamp(16px, 1.9vw, 18.5px); color: var(--ink-soft); margin: 0 0 26px; max-width: 30em; }
+  .cue {
+    display: inline-flex; align-items: center; gap: 10px; font-family: var(--font-mono);
+    font-size: 12.5px; color: var(--muted); background: var(--surface);
+    border: 1px dashed var(--line); border-radius: 10px; padding: 9px 13px;
+  }
+  .cue .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--accent); animation: ping 1.8s infinite; }
+  @keyframes ping { 0%{box-shadow:0 0 0 0 rgba(233,118,10,.5)} 70%{box-shadow:0 0 0 8px rgba(233,118,10,0)} 100%{box-shadow:0 0 0 0 rgba(233,118,10,0)} }
+
+  /* ---- phone ---- */
+  .phone-col { display: flex; justify-content: center; }
+  .phone {
+    width: 340px; max-width: 100%; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 30px; box-shadow: var(--phone-glow); overflow: hidden; display: flex; flex-direction: column;
+  }
+  .phone-status {
+    display: flex; align-items: center; gap: 9px; padding: 12px 16px;
+    background: var(--surface-2); border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: 11.5px; color: var(--ink-soft);
+  }
+  .phone-status .who { font-weight: 700; color: var(--ink); }
+  .phone-status .st { margin-left: auto; display: inline-flex; align-items: center; gap: 6px; }
+  .phone-status .hardhat { font-size: 13px; }
+
+  .thread-head { padding: 13px 16px 11px; border-bottom: 1px solid var(--line); }
+  .thread-head .t { font-weight: 700; font-size: 14px; }
+  .thread-head .s { font-family: var(--font-mono); font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+  .thread {
+    padding: 16px 14px; display: flex; flex-direction: column; gap: 10px;
+    min-height: 300px; max-height: 380px; overflow-y: auto; scroll-behavior: smooth;
+    background:
+      radial-gradient(circle at 20% 0%, color-mix(in srgb, var(--accent) 5%, transparent), transparent 60%),
+      var(--surface);
+  }
+  .msg { max-width: 82%; padding: 9px 13px; border-radius: 15px; font-size: 13.5px; line-height: 1.4; animation: pop .28s ease both; }
+  @keyframes pop { from { opacity: 0; transform: translateY(6px) scale(.98); } to { opacity: 1; transform: none; } }
+  .msg .meta { display: block; font-family: var(--font-mono); font-size: 9.5px; color: var(--muted); margin-top: 5px; letter-spacing: .02em; }
+  .msg.in { align-self: flex-start; background: var(--accent-soft); color: var(--ink); border-bottom-left-radius: 5px; }
+  .msg.out { align-self: flex-end; background: var(--surface-2); color: var(--ink); border-bottom-right-radius: 5px; }
+  .msg.win { align-self: flex-start; background: var(--success-soft); color: var(--ink); border: 1px solid color-mix(in srgb, var(--success) 40%, transparent); border-bottom-left-radius: 5px; }
+  .msg.win .b { color: var(--success); font-weight: 700; }
+  .msg .from { font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--accent); display: block; margin-bottom: 3px; }
+  .msg.win .from { color: var(--success); }
+
+  .typing { align-self: flex-start; background: var(--accent-soft); padding: 12px 14px; border-radius: 15px; border-bottom-left-radius: 5px; display: inline-flex; gap: 4px; }
+  .typing span { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); opacity: .5; animation: blink 1.2s infinite; }
+  .typing span:nth-child(2){ animation-delay: .2s; } .typing span:nth-child(3){ animation-delay: .4s; }
+  @keyframes blink { 0%,100%{opacity:.3; transform: translateY(0);} 50%{opacity:1; transform: translateY(-2px);} }
+
+  .composer { border-top: 1px solid var(--line); padding: 11px 12px; background: var(--surface); }
+  .prompt-label { font-family: var(--font-mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .07em; color: var(--muted); margin: 0 2px 8px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 7px; }
+  .chip {
+    border: 1px solid var(--line); background: var(--surface); color: var(--ink);
+    border-radius: 999px; padding: 8px 13px; font-size: 12.5px; cursor: pointer;
+    font-family: var(--font-body); transition: transform .1s, border-color .15s, background .15s;
+  }
+  .chip:hover { border-color: var(--accent); background: var(--accent-soft); }
+  .chip:active { transform: scale(.96); }
+  .chip:focus-visible, .theme-btn:focus-visible, .cta-btn:focus-visible, .replay:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+  .replay-row { display: flex; justify-content: center; padding: 10px; }
+  .replay { border: 1px solid var(--line); background: transparent; color: var(--ink-soft); border-radius: 999px; padding: 7px 15px; font-size: 12px; cursor: pointer; font-family: var(--font-mono); }
+  .replay:hover { border-color: var(--accent); color: var(--ink); }
+
+  /* ---- proof row ---- */
+  .proof { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin-top: 46px; }
+  @media (max-width: 640px){ .proof { grid-template-columns: 1fr; } }
+  .stat { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 18px; }
+  .stat .n { font-family: var(--font-disp); font-weight: 800; font-size: 30px; letter-spacing: -.02em; color: var(--ink); font-variant-numeric: tabular-nums; }
+  .stat .n small { color: var(--accent); font-size: 20px; }
+  .stat .l { font-size: 13px; color: var(--ink-soft); margin-top: 3px; }
+
+  /* ---- pitch ---- */
+  .pitch { margin-top: 46px; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 30px 30px; box-shadow: var(--shadow); }
+  .pitch h2 { font-family: var(--font-disp); font-weight: 800; letter-spacing: -.01em; font-size: clamp(20px, 3vw, 26px); margin: 0 0 14px; text-wrap: balance; }
+  .pitch p { color: var(--ink-soft); margin: 0 0 14px; max-width: 62ch; }
+  .pitch strong { color: var(--ink); }
+  .leaks { list-style: none; padding: 0; margin: 18px 0 4px; display: grid; gap: 8px; }
+  .leaks li { display: flex; gap: 11px; align-items: flex-start; font-size: 14.5px; }
+  .leaks .x { color: var(--accent); font-family: var(--font-mono); font-weight: 700; flex-shrink: 0; }
+
+  /* ---- cta ---- */
+  .cta { margin-top: 30px; text-align: center; padding: 8px; }
+  .cta h2 { font-family: var(--font-disp); font-weight: 800; font-size: clamp(22px, 3.4vw, 30px); margin: 0 0 8px; letter-spacing: -.02em; text-wrap: balance; }
+  .cta p { color: var(--ink-soft); margin: 0 auto 22px; max-width: 40ch; }
+  .cta-btn {
+    display: inline-block; background: var(--accent); color: var(--on-accent);
+    text-decoration: none; font-weight: 700; font-size: 16px; padding: 15px 30px;
+    border-radius: 12px; font-family: var(--font-disp); letter-spacing: .01em;
+    box-shadow: 0 12px 26px -12px var(--accent); transition: transform .12s;
+  }
+  .cta-btn:hover { transform: translateY(-2px); }
+  .cta .fine { font-family: var(--font-mono); font-size: 11.5px; color: var(--muted); margin-top: 16px; }
+
+  footer { text-align: center; margin-top: 46px; font-family: var(--font-mono); font-size: 11px; color: var(--muted); }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; scroll-behavior: auto !important; }
+    .cta-btn:hover, .chip:active { transform: none; }
+  }
+</style>
+
+<div class="wrap">
+  <div class="topbar">
+    <div class="brand">
+      <div class="mark">R</div>
+      <div class="name">The Revenue Agent</div>
+    </div>
+    <button class="theme-btn" id="themeBtn" type="button" aria-label="Switch light or dark theme">◐ Theme</button>
+  </div>
+
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow">Live demo · try it yourself</p>
+      <h1>Your next <span class="hl">£30k job</span> just messaged you. You're up a ladder.</h1>
+      <p class="sub">Watch what happens when an enquiry lands and you can't get to your phone. Play the customer — send a message and see who answers.</p>
+      <span class="cue"><span class="dot"></span> Tap a job in the phone to start →</span>
+    </div>
+
+    <div class="phone-col">
+      <div class="phone" role="group" aria-label="Interactive lead response demo">
+        <div class="phone-status">
+          <span class="who">Nick</span>
+          <span class="st" id="nickStatus"><span class="hardhat">🪜</span> On site — hasn't touched his phone</span>
+        </div>
+        <div class="thread-head">
+          <div class="t">New enquiry · via your website</div>
+          <div class="s" id="threadSub">Answered automatically by The Revenue Agent</div>
+        </div>
+        <div class="thread" id="thread" aria-live="polite"></div>
+        <div class="composer" id="composer">
+          <p class="prompt-label" id="promptLabel">You're the customer — what do you need?</p>
+          <div class="chips" id="chips"></div>
+        </div>
+        <div class="replay-row" id="replayRow" style="display:none;">
+          <button class="replay" id="replayBtn" type="button">↺ Run it again</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proof" aria-label="What just happened">
+    <div class="stat"><div class="n"><small>~</small>8<small>s</small></div><div class="l">To reply — day or night, while you keep working</div></div>
+    <div class="stat"><div class="n">24/7</div><div class="l">Answers, qualifies and books, even at 9pm on a Sunday</div></div>
+    <div class="stat"><div class="n">£0</div><div class="l">Of your time. It's booked before you're off the scaffold</div></div>
+  </section>
+
+  <section class="pitch">
+    <h2>You're not short of enquiries. You're leaking them.</h2>
+    <p>Most builders lose work at the same five spots — and every leak is a job walking to whoever replied first:</p>
+    <ul class="leaks">
+      <li><span class="x">01</span><span>Enquiry lands while you're on the tools — <strong>nobody answers till the evening.</strong> By then they've booked someone else.</span></li>
+      <li><span class="x">02</span><span>Quotes take hours of laptop time at night, so they go out slow — <strong>or never.</strong></span></li>
+      <li><span class="x">03</span><span>You send a price, hear nothing, and <strong>never chase</strong> the ones who were just busy.</span></li>
+    </ul>
+    <p style="margin-top:18px;">This little assistant plugs those holes for you. It replies in seconds, works out if the job's real, and drops a booked survey straight in your diary — <strong>you just turn up and win the work.</strong> No new app to learn. It runs while you do what you're good at.</p>
+  </section>
+
+  <section class="cta">
+    <h2>Want this answering your enquiries?</h2>
+    <p>10-minute chat, no sales flannel. If it's not for you, no worries.</p>
+    <a class="cta-btn" id="ctaBtn" href="mailto:nick@therevenueagent.co.uk?subject=I%20saw%20the%20demo%20-%20tell%20me%20more&body=Hi%20Nick%2C%20I%20had%20a%20play%20with%20the%20lead%20responder%20demo.%20Can%20you%20show%20me%20how%20it%27d%20work%20for%20my%20business%3F">Show me how it works →</a>
+    <p class="fine">The Revenue Agent · automations that give tradesmen their evenings back</p>
+  </section>
+
+  <footer>Built by The Revenue Agent · this is a live demonstration</footer>
+</div>
+
+<script>
+(function () {
+  "use strict";
+  var root = document.documentElement;
+  var themeBtn = document.getElementById("themeBtn");
+  themeBtn.addEventListener("click", function () {
+    var cur = root.getAttribute("data-theme");
+    if (!cur) { cur = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light"; }
+    root.setAttribute("data-theme", cur === "dark" ? "light" : "dark");
+  });
+
+  var thread = document.getElementById("thread");
+  var chips = document.getElementById("chips");
+  var promptLabel = document.getElementById("promptLabel");
+  var composer = document.getElementById("composer");
+  var replayRow = document.getElementById("replayRow");
+  var nickStatus = document.getElementById("nickStatus");
+  var threadSub = document.getElementById("threadSub");
+  var reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  var t0 = "21:04";
+  var jobs = ["Two-storey extension", "Loft conversion", "Full kitchen refit"];
+
+  function clearChips() { chips.innerHTML = ""; }
+  function setPrompt(txt) { promptLabel.textContent = txt; }
+
+  function addChip(label, onClick) {
+    var b = document.createElement("button");
+    b.className = "chip"; b.type = "button"; b.textContent = label;
+    b.addEventListener("click", function () { onClick(label); });
+    chips.appendChild(b);
+  }
+
+  function bubble(kind, from, html, meta) {
+    var d = document.createElement("div");
+    d.className = "msg " + kind;
+    var inner = "";
+    if (from) inner += '<span class="from">' + from + "</span>";
+    inner += html;
+    if (meta) inner += '<span class="meta">' + meta + "</span>";
+    d.innerHTML = inner;
+    thread.appendChild(d);
+    thread.scrollTop = thread.scrollHeight;
+    return d;
+  }
+
+  function typing(cb, delay) {
+    var d = document.createElement("div");
+    d.className = "typing"; d.innerHTML = "<span></span><span></span><span></span>";
+    thread.appendChild(d); thread.scrollTop = thread.scrollHeight;
+    setTimeout(function () { d.remove(); cb(); }, reduce ? 220 : (delay || 1100));
+  }
+
+  function start() {
+    thread.innerHTML = ""; clearChips(); replayRow.style.display = "none";
+    composer.style.display = "block";
+    nickStatus.innerHTML = '<span class="hardhat">🪜</span> On site — hasn\'t touched his phone';
+    threadSub.textContent = "Answered automatically by The Revenue Agent";
+    setPrompt("You're the customer — what do you need?");
+    jobs.forEach(function (j) { addChip(j, sendEnquiry); });
+  }
+
+  function sendEnquiry(job) {
+    clearChips(); setPrompt("");
+    bubble("out", null, "Hi, after a price for a <strong>" + job.toLowerCase() + "</strong> — are you taking work on?", "Sent " + t0);
+    typing(function () {
+      bubble("in", "Auto-reply · 8 seconds later",
+        "Hi there — thanks for getting in touch! 👋 Yes, Nick's taking on " + job.toLowerCase() +
+        " work. So he quotes the right job — are you hoping to start in the next 3 months?", "Delivered " + t0);
+      setPrompt("Reply:");
+      addChip("Yes, ASAP", qualifyYes);
+      addChip("Just getting prices", qualifyMaybe);
+    }, 1300);
+  }
+
+  function qualifyMaybe() {
+    clearChips(); setPrompt("");
+    bubble("out", null, "Just getting a few prices for now.", "Sent 21:05");
+    typing(function () {
+      bubble("in", "Auto-reply",
+        "No problem at all — smart to compare. I'll pop you a rough guide over and Nick can firm it up on a visit whenever you're ready. Want me to hold a free survey slot just in case?", "Delivered 21:05");
+      setPrompt("Reply:");
+      addChip("Go on then", bookSlot);
+      addChip("Maybe later", softClose);
+    }, 1200);
+  }
+
+  function qualifyYes() {
+    clearChips(); setPrompt("");
+    bubble("out", null, "Yes — hoping to start pretty soon.", "Sent 21:05");
+    typing(function () {
+      bubble("in", "Auto-reply",
+        "Brilliant. 👍 Nick can pop round, measure up and give you a proper quote — no charge, no obligation. Which suits you best?", "Delivered 21:05");
+      setPrompt("Pick a survey slot:");
+      addChip("Thu · 2:00pm", bookSlot);
+      addChip("Sat · 9:30am", bookSlot);
+      addChip("Mon · 5:00pm", bookSlot);
+    }, 1300);
+  }
+
+  function bookSlot(slot) {
+    clearChips(); setPrompt("");
+    var when = (slot && slot.indexOf("·") > -1) ? slot : "Thu · 2:00pm";
+    bubble("out", null, "Let's do <strong>" + when + "</strong>.", "Sent 21:06");
+    typing(function () {
+      bubble("win", "✓ Booked automatically",
+        '<span class="b">Survey booked — ' + when + '.</span> Nick will get a text the second he\'s off site and confirm. Address and a reminder are on their way to you now. 🙌', "Delivered 21:06");
+      finish("booked a survey");
+    }, 1200);
+  }
+
+  function softClose() {
+    clearChips(); setPrompt("");
+    bubble("out", null, "Maybe later, cheers.", "Sent 21:05");
+    typing(function () {
+      bubble("in", "Auto-reply · follow-up set",
+        "No worries — I'll send Nick's past jobs over and give you a gentle nudge in a couple of weeks so it doesn't slip. Have a good evening! 👋", "Delivered 21:05");
+      finish("saved the lead");
+    }, 1150);
+  }
+
+  function finish(outcome) {
+    setPrompt("");
+    nickStatus.innerHTML = '<span class="hardhat">🎉</span> Off site — and he\'s ' + (outcome === "booked a survey" ? "got a booked job" : "kept the lead warm");
+    threadSub.textContent = "All handled while Nick was still working";
+    bubble("in", "The Revenue Agent",
+      "That whole conversation happened <strong>without Nick lifting a finger</strong>. That's what we install for you.", "");
+    composer.style.display = "none";
+    replayRow.style.display = "flex";
+  }
+
+  document.getElementById("replayBtn").addEventListener("click", start);
+  start();
+})();
+</script>
