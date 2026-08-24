@@ -14,51 +14,69 @@ Two hard constraints this session runs into:
 - It is authenticated as **nicosmada3-web** and can only **push** to `Back2strong-apps`.
 - It **cannot read `jeeves-bot`** at all (private + different account).
 
-## The real decision: what does "one repo" mean?
+## Decision (confirmed 2026-08-20): Option B — one account, repos stay separate
 
-These are three different runtimes on three different hosts. There are two honest shapes:
+Everything lands under **Jeevesbot-work** as separate, cleanly-named repos. No code
+merge, no monorepo — so **no live deployment breaks**. Rename map:
 
-### Option A — One monorepo (what was literally asked)
-All apps as subfolders of a single repo:
+| From | To |
+|---|---|
+| `nicosmada3-web/Back2strong-apps` | `Jeevesbot-work/back2strong-web` |
+| `Jeevesbot-work/edge-app` | `Jeevesbot-work/back2strong-edge` |
+| `Jeevesbot-work/jeeves-bot` | keep as `jeeves-bot` (it's a separate Telegram bot, not a Back2Strong product) — or `back2strong-bot` if you want it in the family |
+
+> A true monorepo was the other option; it was rejected because it would have forced a
+> reconfigure of Vercel / GitHub Pages / Railway — including the live client app — for no
+> real gain. "One account, one PAT, one place to look" is what actually solves the pain.
+
+## Execution steps (Option B)
+
+All of this needs both logins, so it's done by you on github.com — Claude in this
+session is scoped to nicosmada3-web and can't transfer or rename repos.
+
+### 1. Transfer the one repo that lives on the wrong account
+- Log into **nicosmada3-web** → `Back2strong-apps` → Settings → bottom → **Transfer ownership** → to **Jeevesbot-work**.
+- Log into **Jeevesbot-work** → **accept** the transfer.
+
+### 2. Rename for clarity (Jeevesbot-work → each repo → Settings → rename)
+- `Back2strong-apps` → **`back2strong-web`**
+- `edge-app` → **`back2strong-edge`**
+- `jeeves-bot` → leave as-is (or `back2strong-bot`)
+
+### 3. Confirm the fine-grained PAT covers all three
+Jeevesbot-work → Settings → Developer settings → the PAT → **Repository access** →
+include `back2strong-web`, `back2strong-edge`, `jeeves-bot` (Contents: read/write).
+
+### 4. Repoint your local clones (on YOUR machine, real terminal)
+```bash
+# back2strong-web (was nicosmada3-web/Back2strong-apps)
+cd path/to/Back2strong-apps
+git remote set-url origin https://github.com/Jeevesbot-work/back2strong-web.git
+git fetch origin && git push
+
+# back2strong-edge (was edge-app)
+cd path/to/edge-app
+git remote set-url origin https://github.com/Jeevesbot-work/back2strong-edge.git
+git fetch origin && git push
+cd .. && mv edge-app back2strong-edge   # optional: fold the folder name to match
+
+# jeeves-bot — no owner change, no action needed unless you renamed it
 ```
-back2strong/
-  apps/web/         ← current Back2strong-apps static site
-  apps/edge/        ← edge-app (Next.js)
-  apps/jeeves-bot/  ← Telegram bot
-```
-- ✅ Literally one repo, one place.
-- ⚠️ **Breaks all three live deployments until each host is re-pointed** at its subfolder: Vercel (edge) → set Root Directory + reconnect repo; GitHub Pages/Netlify (web) → change publish dir; Railway (bot) → change root. The Vercel one touches a **live client app** — do it deliberately, not by accident.
-- ⚠️ The ~150 MB of audio bloats the shared repo for everyone cloning it.
 
-### Option B — One account, repos stay separate (recommended for live apps)
-Move all three repos under **Jeevesbot-work**, rename cleanly, leave each deployment untouched:
-- `Back2strong-apps` → `back2strong-web`
-- `edge-app` → `back2strong-edge`
-- `jeeves-bot` → keep, or `back2strong-bot`
-- ✅ One account, one PAT, one place to look — the actual pain solved.
-- ✅ Nothing breaks: each host keeps pointing at its repo (transfer preserves the URL redirect).
-- ✅ This is just the transfer + rename flow already in `CONSOLIDATION.md`.
+### 5. Retire nicosmada3-web — LAST, and delete nothing until confirmed
+Once all three are confirmed live from Jeevesbot-work, stop using nicosmada3-web.
+Don't delete the account or any repo until everything is verified working.
 
-> "One simply named repo" and "stop the two-account mess" are both fully satisfied by **B** without risking the live client app. A is available if you genuinely want a single codebase.
+## Things that DON'T break, and the one that shifts
+- GitHub keeps a **redirect** after both transfer and rename, so existing git remotes,
+  Vercel/Netlify/Railway app connections, and links keep resolving. Reconnect each host
+  to the new name at leisure for cleanliness — nothing is urgent.
+- **One real shift:** transferring `Back2strong-apps` moves its GitHub Pages default URL
+  from `nicosmada3-web.github.io/Back2strong-apps/` to the Jeevesbot-work equivalent. If a
+  **custom domain** (e.g. back2strong.online) fronts it, that's unaffected. If anything
+  links the raw `github.io` URL, update it after the transfer.
 
-## Safe migration — the part that loses nothing, done first
-
-Regardless of A or B, step 1 is a **backup that can't lose anything**: a consolidated snapshot containing a full copy of every app, while the originals stay live and untouched.
-
-- `edge-app` — already cloned read-only into this session; ready to copy in.
-- `Back2strong-apps` — already here.
-- `jeeves-bot` — **cannot be included from this session** (private/cross-account). Must come from a Jeevesbot-work session or be temporarily shared.
-
-Because pushing the monorepo into `Back2strong-apps` would **break its live GitHub Pages site** (Pages serves from root), the snapshot should go to a **new** repo, not overwrite `Back2strong-apps`.
-
-## Recommended sequence
-
-1. **Decide A vs B** (see above).
-2. **Backup snapshot** of everything reachable into one new repo — nothing deleted, nothing re-pointed yet.
-3. **Get `jeeves-bot` in** from a Jeevesbot-work-authorized session (only place it's reachable).
-4. **Land it under Jeevesbot-work**: either build directly there (Jeevesbot-work session) or build here and do a 2-click GitHub *Transfer ownership* at the end.
-5. **Only then**, deliberately: re-point deployments (A) or transfer+rename repos (B).
-6. **Retire nicosmada3-web** once everything is confirmed live from the new home. Delete nothing until then.
-
-## Blocker to clear for a complete job
-To include `jeeves-bot` and to push to Jeevesbot-work, the cleanest fix is to **start a Claude Code session whose initial repo is a Jeevesbot-work repo** (or run this consolidation from the Jeevesbot-work account). This session simply can't reach that account for writes.
+## If you want Claude to do the machine-side parts
+This session can't reach Jeevesbot-work for writes. To have Claude do step 4 (and touch
+`jeeves-bot` at all), start a Claude Code session whose **initial repo is a Jeevesbot-work
+repo** — then it's authorized on that account.
