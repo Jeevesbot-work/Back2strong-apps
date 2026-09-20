@@ -37,7 +37,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 @media(max-width:500px){.prog-grid{grid-template-columns:1fr;}}
 .prog-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
 .prog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
-.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}.prog-card.netballConditioning::before{background:#3E7CA6;}
+.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}.prog-card.netballConditioning::before{background:#3E7CA6;}.prog-card.netballStrength::before{background:#6E5AA6;}
 .prog-card:hover{border-color:var(--gold);transform:translateY(-2px);}
 .prog-card h3{font-size:20px;margin-bottom:3px;}
 .prog-card p{font-size:12px;color:var(--grey);font-family:'Barlow Condensed';text-transform:uppercase;}
@@ -197,6 +197,30 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 .sport-back{background:none;border:none;color:var(--grey);font-family:'Barlow Condensed';font-size:12px;
   cursor:pointer;text-transform:uppercase;letter-spacing:.1em;padding:0;margin-bottom:10px;}
 .sport-back:hover{color:var(--gold);}
+.phase-head{margin:22px 0 10px;}
+.phase-head h3{font-size:19px;color:var(--gold);}
+.phase-head p{font-size:11px;color:var(--grey);font-family:'Barlow Condensed';
+  text-transform:uppercase;letter-spacing:.08em;margin-top:2px;}
+.recipe-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;
+  margin-bottom:10px;overflow:hidden;}
+.recipe-head{padding:14px 16px;cursor:pointer;}
+.recipe-head h4{font-size:17px;line-height:1.15;}
+.recipe-head .r-desc{font-size:12px;color:var(--grey);margin-top:4px;line-height:1.45;}
+.r-macros{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px;}
+.r-chip{background:var(--navy);border-radius:5px;padding:4px 9px;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);}
+.r-chip b{color:var(--gold);font-size:13px;display:block;font-weight:700;}
+.r-meta{margin-top:8px;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);
+  text-transform:uppercase;letter-spacing:.07em;display:flex;gap:10px;align-items:center;}
+.r-open{margin-left:auto;color:var(--gold);}
+.recipe-body{border-top:1px solid var(--navy-l);padding:14px 16px;background:rgba(0,0,0,.18);}
+.recipe-body h5{font-family:'Barlow Condensed';font-size:11px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--grey);margin-bottom:7px;}
+.recipe-body ul,.recipe-body ol{margin:0 0 14px 18px;}
+.recipe-body li{font-size:13px;line-height:1.6;margin-bottom:3px;}
+.coach-note{background:rgba(201,168,76,.08);border-left:2px solid var(--gold);
+  border-radius:0 6px 6px 0;padding:10px 12px;font-size:12px;line-height:1.55;color:var(--white);}
+.coach-note strong{display:block;font-family:'Barlow Condensed';font-size:11px;
+  letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-bottom:4px;}
 .login-hint{text-align:center;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);margin-top:14px;}
 
 /* HEADER USER CHIP */
@@ -560,6 +584,54 @@ function useLocalStorage(key, init) {
 // ── DATA ──────────────────────────────────────────────────────────────────────
 const KEY_LIFTS = ['Back Squat', 'Bench Press', 'Deadlift', 'Overhead Press', 'Pull-Up (weighted)', 'Romanian Deadlift', 'Trap Bar Deadlift', 'Push Press'];
 
+// ── DEMO VIDEOS ───────────────────────────────────────────────────────────────
+// Keyed by a normalised exercise name so every loading variant of a lift
+// ("Back Squat", "Back Squat (90%+)", "Speed Back Squat (60%)") shares one demo.
+// Add a name here and the video appears everywhere that exercise is programmed.
+const VIDEOS = {
+  'band face pull': 'https://youtu.be/AlTGQrDOd98',
+  'calf raise': 'https://youtu.be/ElcvJ0kjt6c',
+  'dead bug': 'https://youtu.be/bxn9FBrt4-A',
+  'face pull': 'https://youtu.be/CU4Xc2qlLC0',
+  'med ball chest pass': 'https://youtu.be/bF2EfGGikEw',
+  'back squat': 'https://youtu.be/ultWZbUMPL8',
+  'bench press': 'https://youtu.be/vcBig73ojpE',
+  'box jump': 'https://youtu.be/W5QzqIbEWvk',
+  'bulgarian split squat': 'https://youtu.be/r7pEtU7jFh4',
+  'chin-up': 'https://youtu.be/e1YSApl-QcM',
+  'copenhagen plank': 'https://youtu.be/YRRnnZsRs9U',
+  'deadlift': 'https://youtu.be/op9kVnSso6Q',
+  'depth jump': 'https://youtu.be/CMFUeXOz-7Q',
+  'depth jump to vertical': 'https://youtu.be/CMFUeXOz-7Q',
+  'hip thrust': 'https://youtu.be/pBH7pKHn-dI',
+  'lateral bound': 'https://youtu.be/niEGdFUQ6sY',
+  'lateral bound to sprint': 'https://youtu.be/niEGdFUQ6sY',
+  'nordic hamstring curl': 'https://youtu.be/_e9vFU9-tkc',
+  'overhead press': 'https://youtu.be/wuFsq9tOsfs',
+  'pallof press': 'https://youtu.be/dBAmQ9bx3JA',
+  'pull-up': 'https://youtu.be/CdtrfXK7bcg',
+  'push press': 'https://youtu.be/iaBVSJm78ko',
+  'rear-foot elevated split squat': 'https://youtu.be/r7pEtU7jFh4',
+  'romanian deadlift': 'https://youtu.be/JCXUYuzwNrM',
+  'single-leg rdl': 'https://youtu.be/Zfr6wizR8rs',
+  'trap bar deadlift': 'https://youtu.be/tpUKFfIFG24',
+  'weighted chin-up': 'https://youtu.be/e1YSApl-QcM',
+  'weighted pull-up': 'https://youtu.be/CdtrfXK7bcg'
+};
+// Strip loading/percentage qualifiers, contrast arrows and the "Core:" prefix.
+function normaliseExercise(name) {
+  return String(name || '')
+    .replace(/^→\s*/, '')
+    .replace(/^Core:\s*/i, '')
+    .replace(/\s*\((?:CONTRAST|BW|band|barbell|max|wall|heavy|fast|speed|step down|assisted if needed|or assisted|weighted|single leg|[\d.]+\s*(?:%|cm|m|-\d+%)[^)]*|\d+[^)]*)\)\s*$/i, '')
+    .replace(/^(?:Speed|Banded|Resisted)\s+/i, '')
+    .trim()
+    .toLowerCase();
+}
+function videoFor(name) {
+  return VIDEOS[normaliseExercise(name)] || null;
+}
+
 // Exercises still awaiting a demo video — shown with a "Video coming soon" marker.
 // Matched as a substring of the exercise name so every block/variant is covered.
 const VIDEO_PENDING = ['dead bug', 'pallof press', 'ab wheel', 'deficit deadlift', 'ghd back extension', 'copenhagen plank', 'dragon flag', 'farmer carry', 'landmine 180', 'band lat pulldown', 'hollow body hold', 'lateral bound to sprint', 'landmine anti-rotation', '5-10-5'];
@@ -606,15 +678,13 @@ const PROGRAMMES = {
           sets: '4',
           reps: '8',
           rest: '2 min',
-          cue: 'Brace hard, knees track toes, full depth',
-          yt: 'https://youtu.be/ultWZbUMPL8'
+          cue: 'Brace hard, knees track toes, full depth'
         }, {
           name: 'Romanian Deadlift',
           sets: '3',
           reps: '10',
           rest: '90s',
-          cue: 'Push hips back, feel hamstring stretch',
-          yt: 'https://youtu.be/JCXUYuzwNrM'
+          cue: 'Push hips back, feel hamstring stretch'
         }, {
           name: 'Leg Press',
           sets: '3',
@@ -648,8 +718,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '8',
           rest: '2 min',
-          cue: 'Retract scapula, bar to mid-chest',
-          yt: 'https://youtu.be/vcBig73ojpE'
+          cue: 'Retract scapula, bar to mid-chest'
         }, {
           name: 'Bent-Over Row',
           sets: '4',
@@ -695,8 +764,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '6',
           rest: '2.5 min',
-          cue: 'Hinge from hips, bar close to shins',
-          yt: 'https://youtu.be/op9kVnSso6Q'
+          cue: 'Hinge from hips, bar close to shins'
         }, {
           name: 'Overhead Press',
           sets: '3',
@@ -741,8 +809,7 @@ const PROGRAMMES = {
           sets: '5',
           reps: '6',
           rest: '2.5 min',
-          cue: 'Add 5% load from Block 1',
-          yt: 'https://youtu.be/ultWZbUMPL8'
+          cue: 'Add 5% load from Block 1'
         }, {
           name: 'Romanian Deadlift',
           sets: '4',
@@ -828,15 +895,13 @@ const PROGRAMMES = {
           sets: '4',
           reps: '5',
           rest: '2.5 min',
-          cue: 'Athletic position — drives quad and hip',
-          yt: 'https://youtu.be/ViV26LBfHEM'
+          cue: 'Athletic position — drives quad and hip'
         }, {
           name: 'Push Press',
           sets: '3',
           reps: '5',
           rest: '2 min',
-          cue: 'Slight leg drive to initiate',
-          yt: 'https://youtu.be/iaBVSJm78ko'
+          cue: 'Slight leg drive to initiate'
         }, {
           name: 'Weighted Chin-Up',
           sets: '3',
@@ -1189,8 +1254,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '4',
           rest: '2.5 min',
-          cue: 'Sub-max load — JUMP the weight',
-          yt: 'https://youtu.be/ViV26LBfHEM'
+          cue: 'Sub-max load — JUMP the weight'
         }, {
           name: 'Push Press (heavy)',
           sets: '3',
@@ -1235,8 +1299,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '5',
           rest: '2.5 min',
-          cue: 'Reactive — minimal ground contact',
-          yt: 'https://youtu.be/Lk2n5dq0bSk'
+          cue: 'Reactive — minimal ground contact'
         }, {
           name: 'Trap Bar Deadlift',
           sets: '3',
@@ -1352,8 +1415,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '5',
           rest: '2 min',
-          cue: 'Step down never jump. Land softly, absorb load.',
-          yt: 'https://youtu.be/52loww6dIpk'
+          cue: 'Step down never jump. Land softly, absorb load.'
         }, {
           name: 'Broad Jump',
           sets: '4',
@@ -1481,15 +1543,13 @@ const PROGRAMMES = {
           sets: '4',
           reps: '3',
           rest: '3-4 min',
-          cue: 'STRENGTH STIMULUS — slow down, explosive up',
-          yt: 'https://youtu.be/ultWZbUMPL8'
+          cue: 'STRENGTH STIMULUS — slow down, explosive up'
         }, {
           name: '→ Box Jump (CONTRAST)',
           sets: '4',
           reps: '5',
           rest: '2 min',
-          cue: 'AFTER squat rest — maximum height',
-          yt: 'https://youtu.be/52loww6dIpk'
+          cue: 'AFTER squat rest — maximum height'
         }, {
           name: 'Romanian Deadlift (75%)',
           sets: '3',
@@ -1518,8 +1578,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '3',
           rest: '3-4 min',
-          cue: 'Intent to accelerate — move it fast',
-          yt: 'https://youtu.be/vcBig73ojpE'
+          cue: 'Intent to accelerate — move it fast'
         }, {
           name: '→ Med Ball Chest Pass (CONTRAST)',
           sets: '4',
@@ -1531,8 +1590,7 @@ const PROGRAMMES = {
           sets: '3',
           reps: '4',
           rest: '3 min',
-          cue: 'Leg drive → lock out overhead',
-          yt: 'https://youtu.be/iaBVSJm78ko'
+          cue: 'Leg drive → lock out overhead'
         }, {
           name: '→ Clap Push-Up (CONTRAST)',
           sets: '3',
@@ -1555,8 +1613,7 @@ const PROGRAMMES = {
           sets: '5',
           reps: '4',
           rest: '2.5 min',
-          cue: 'Sub-max — JUMP the weight',
-          yt: 'https://youtu.be/ViV26LBfHEM'
+          cue: 'Sub-max — JUMP the weight'
         }, {
           name: 'Sprint (30m)',
           sets: '6',
@@ -1602,8 +1659,7 @@ const PROGRAMMES = {
           sets: '4',
           reps: '5',
           rest: '3 min',
-          cue: 'Reactive strength — minimal ground contact',
-          yt: 'https://youtu.be/Lk2n5dq0bSk'
+          cue: 'Reactive strength — minimal ground contact'
         }, {
           name: 'Banded Squat Jump',
           sets: '4',
@@ -2103,6 +2159,341 @@ const PROGRAMMES = {
           rest: '—',
           cue: 'Hip flexors (90/90 stretch), quad stretch, thoracic rotation over foam roller, hamstring floss. 45s per position. Do it properly.',
           cardio: true
+        }]
+      }]
+    }]
+  },
+  netballStrength: {
+    id: 'netballStrength',
+    sport: 'netball',
+    name: 'Netball Strength',
+    subtitle: 'Court Strength & Robustness',
+    color: '#6E5AA6',
+    badge: 'Netball',
+    info: {
+      sessions: '2-3 / week',
+      duration: '50-60 min',
+      focus: 'Posterior chain, single-leg strength, landing robustness, contest strength'
+    },
+    blocks: [{
+      name: 'Block 1',
+      subtitle: 'Foundation & Movement Quality — Weeks 1-4',
+      warmup: '5 min bike → 2 rounds: 10 banded pull-aparts, 10 hip circles each side, 10 bodyweight squats, 10 ankle rocks each, 8 glute bridges',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Lower Body — Building the Base',
+        exercises: [{
+          name: 'Back Squat',
+          sets: '3',
+          reps: '8',
+          rest: '2 min',
+          cue: 'Brace hard, knees track over toes, full depth. Leave 2-3 reps in the tank every set this block — technique before load.'
+        }, {
+          name: 'Romanian Deadlift',
+          sets: '3',
+          reps: '10',
+          rest: '90s',
+          cue: 'Push the hips back, soft knees, feel the hamstring stretch. The hamstrings are what stop you when you decelerate.'
+        }, {
+          name: 'Split Squat',
+          sets: '3',
+          reps: '10 each',
+          rest: '90s',
+          cue: 'Torso tall, front knee over the middle of the foot. Netball is played on one leg far more than two.'
+        }, {
+          name: 'Calf Raise (single leg)',
+          sets: '3',
+          reps: '12 each',
+          rest: '60s',
+          cue: 'Full range, 2s pause at the top, slow lower. Builds the achilles and ankle that absorb every landing.'
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Ribs down, resist the rotation. Do not let the hips twist.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Upper Body — Push, Pull and Posture',
+        exercises: [{
+          name: 'Overhead Press',
+          sets: '3',
+          reps: '8',
+          rest: '2 min',
+          cue: 'Squeeze the glutes, ribs down, press in a straight line. Overhead strength is what holds a contest.'
+        }, {
+          name: 'Chin-Up (assisted if needed)',
+          sets: '3',
+          reps: '6-8',
+          rest: '2 min',
+          cue: 'Band or machine assistance is fine — full range beats half reps. Build towards unassisted.'
+        }, {
+          name: 'DB Bench Press',
+          sets: '3',
+          reps: '10',
+          rest: '90s',
+          cue: 'Controlled down, drive up. Shoulder blades pulled back into the bench.'
+        }, {
+          name: 'Seated Row',
+          sets: '3',
+          reps: '12',
+          rest: '60s',
+          cue: 'Squeeze the shoulder blades, no shrugging. Balances all the pressing and protects the shoulder.'
+        }, {
+          name: 'Band Face Pull',
+          sets: '3',
+          reps: '15',
+          rest: '45s',
+          cue: 'Pull to the forehead, elbows high. Shoulder insurance for a sport that throws overhead all day.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Full Body — Robustness & Landing',
+        exercises: [{
+          name: 'Trap Bar Deadlift',
+          sets: '3',
+          reps: '8',
+          rest: '2 min',
+          cue: 'Chest up, push the floor away. Easier on the back than a straight bar and ideal for a first strength block.'
+        }, {
+          name: 'Nordic Hamstring Curl',
+          sets: '3',
+          reps: '5',
+          rest: '2 min',
+          cue: 'Control the descent as far as you can, then catch yourself. The single best hamstring injury reducer there is.'
+        }, {
+          name: 'Single-Leg Glute Bridge',
+          sets: '3',
+          reps: '12 each',
+          rest: '60s',
+          cue: 'Drive through the heel, squeeze at the top, hips level. Do not let the resting side drop.'
+        }, {
+          name: 'Copenhagen Plank',
+          sets: '3',
+          reps: '20s each',
+          rest: '45s',
+          cue: 'Start bent-knee and progress to straight. Groin strength for every sideways push-off.'
+        }, {
+          name: 'Core: Dead Bug',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Lower back stays flat on the floor throughout.'
+        }]
+      }]
+    }, {
+      name: 'Block 2',
+      subtitle: 'Strength — Weeks 5-8',
+      warmup: '5 min bike → 2 rounds: 10 band pull-aparts, 8 goblet squats, 8 single-leg RDL reach each, 10 pogo hops → 2 warm-up sets of the first lift',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Lower Body Strength',
+        exercises: [{
+          name: 'Back Squat',
+          sets: '4',
+          reps: '5',
+          rest: '2-3 min',
+          cue: 'Heavier now. Same depth, same bracing — if depth goes, the weight is too heavy. Log every set.'
+        }, {
+          name: 'Romanian Deadlift',
+          sets: '4',
+          reps: '6',
+          rest: '2 min',
+          cue: 'Load it up but keep the back flat. Stop the set the moment the hips stop driving.'
+        }, {
+          name: 'Rear-Foot Elevated Split Squat',
+          sets: '3',
+          reps: '8 each',
+          rest: '90s',
+          cue: 'Back foot on a bench, dumbbells in hand. Brutal and worth it — this is the single-leg strength netball runs on.'
+        }, {
+          name: 'Nordic Hamstring Curl',
+          sets: '3',
+          reps: '6',
+          rest: '2 min',
+          cue: 'Slower than last block. Lower as far as you can control.'
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Heavier band, same control. No hip twist.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Upper Body Strength',
+        exercises: [{
+          name: 'Overhead Press',
+          sets: '4',
+          reps: '5',
+          rest: '2-3 min',
+          cue: 'Strict, no leg drive. Log the weight — this one improves fast at your age.'
+        }, {
+          name: 'Pull-Up (weighted)',
+          sets: '4',
+          reps: '5',
+          rest: '2-3 min',
+          cue: 'Add load once you can do 8 clean bodyweight reps. Assisted is still fine — just log it.'
+        }, {
+          name: 'DB Bench Press',
+          sets: '3',
+          reps: '8',
+          rest: '90s',
+          cue: 'Heavier than Block 1. Control the lowering.'
+        }, {
+          name: 'Chest-Supported Row',
+          sets: '3',
+          reps: '10',
+          rest: '90s',
+          cue: 'Chest stays on the pad. Pull with the back, not the arms.'
+        }, {
+          name: 'Band Face Pull',
+          sets: '3',
+          reps: '15',
+          rest: '45s',
+          cue: 'Never skipped. Ever.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Posterior Chain & Landing',
+        exercises: [{
+          name: 'Trap Bar Deadlift',
+          sets: '4',
+          reps: '5',
+          rest: '2-3 min',
+          cue: 'Fast off the floor, controlled down. This is your big strength number — log it every week.'
+        }, {
+          name: 'Hip Thrust',
+          sets: '3',
+          reps: '8',
+          rest: '90s',
+          cue: 'Chin tucked, ribs down, squeeze hard at the top. Glutes are your brakes.'
+        }, {
+          name: 'Single-Leg RDL',
+          sets: '3',
+          reps: '8 each',
+          rest: '90s',
+          cue: 'Slow, hips square, reach long. If you wobble, lighten it — this is a control exercise first.'
+        }, {
+          name: 'Copenhagen Plank',
+          sets: '3',
+          reps: '25s each',
+          rest: '45s',
+          cue: 'Progress to straight-leg if the bent-knee version is easy.'
+        }, {
+          name: 'Calf Raise (single leg)',
+          sets: '3',
+          reps: '15 each',
+          rest: '60s',
+          cue: 'Add load. The ankle takes the first hit of every landing.'
+        }]
+      }]
+    }, {
+      name: 'Block 3',
+      subtitle: 'Strength-Power & In-Season — Weeks 9-12',
+      warmup: '5 min bike → dynamic: 10 ankle rocks, 8 lateral lunge each, 8 glute bridges, 10 pogo hops → 2-3 ramping sets of the first lift, last one fast and sharp',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Lower Body Power',
+        exercises: [{
+          name: 'Back Squat',
+          sets: '4',
+          reps: '3',
+          rest: '3 min',
+          cue: 'Heavy but fast intent — move the bar as quickly as you can. Stop well short of failure.'
+        }, {
+          name: 'Trap Bar Jump',
+          sets: '4',
+          reps: '3',
+          rest: '2 min',
+          cue: 'Light load, maximum jump height. Land soft and reset between every rep.'
+        }, {
+          name: 'Rear-Foot Elevated Split Squat',
+          sets: '3',
+          reps: '6 each',
+          rest: '90s',
+          cue: 'Keep the single-leg strength topped up while the power work takes priority.'
+        }, {
+          name: 'Hurdle Hop to Stick',
+          sets: '4',
+          reps: '4',
+          rest: '2 min',
+          cue: 'Two-foot hop over the hurdle, stick the landing for 2s. Quality only — stop when the landings get sloppy.'
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Maintenance. Keep the trunk honest.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Upper Body Power & Contest',
+        exercises: [{
+          name: 'Push Press',
+          sets: '4',
+          reps: '3',
+          rest: '2-3 min',
+          cue: 'Dip, drive, punch overhead. Leg drive is the point — this is the closest lift to a contested rebound.'
+        }, {
+          name: 'Pull-Up (weighted)',
+          sets: '4',
+          reps: '4',
+          rest: '2-3 min',
+          cue: 'Explosive up, controlled down.'
+        }, {
+          name: 'Med Ball Chest Pass',
+          sets: '4',
+          reps: '5',
+          rest: '90s',
+          cue: 'Maximum intent into a wall. Netball passing power comes from the trunk, not the arms.'
+        }, {
+          name: 'Chest-Supported Row',
+          sets: '3',
+          reps: '10',
+          rest: '90s',
+          cue: 'Maintenance volume for the back.'
+        }, {
+          name: 'Band Face Pull',
+          sets: '3',
+          reps: '15',
+          rest: '45s',
+          cue: 'Still not skipped.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'In-Season Maintenance (short session)',
+        exercises: [{
+          name: 'Back Squat',
+          sets: '2',
+          reps: '5',
+          rest: '2 min',
+          cue: 'Submaximal — around 70%. The job in-season is to keep strength, not chase it. Leave the session feeling fresh.'
+        }, {
+          name: 'Romanian Deadlift',
+          sets: '2',
+          reps: '8',
+          rest: '90s',
+          cue: 'Moderate load, perfect technique.'
+        }, {
+          name: 'Single-Leg Glute Bridge',
+          sets: '2',
+          reps: '12 each',
+          rest: '60s',
+          cue: 'Keeps the glutes firing through a fixture-heavy week.'
+        }, {
+          name: 'Copenhagen Plank',
+          sets: '2',
+          reps: '20s each',
+          rest: '45s',
+          cue: 'Groin maintenance.'
+        }, {
+          name: 'Calf Raise (single leg)',
+          sets: '2',
+          reps: '15 each',
+          rest: '45s',
+          cue: 'Ankle maintenance. Ten minutes that keeps you on court.'
         }]
       }]
     }]
@@ -2768,6 +3159,1158 @@ const NUTRITION = {
   }
 };
 
+// ── RECIPES (generated by scripts/pull-recipes.mjs — do not edit by hand) ────
+const RECIPES = [
+  {
+    "title": "Banana Chia Seed Ice Cream",
+    "slug": "banana-chia-seed-ice-cream",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "A quick blended frozen treat made from banana, Greek yogurt, honey and chia seeds.",
+    "servings": 4,
+    "mins": 10,
+    "kcal": 150,
+    "p": 8,
+    "c": 27,
+    "f": 2,
+    "ingredients": [
+      "2 frozen bananas",
+      "2 tablespoons honey",
+      "1 cup Greek yogurt",
+      "2 tablespoons chia seeds (1 for blending, 1 for mixing in)"
+    ],
+    "method": [
+      "Blend the frozen bananas, honey, Greek yogurt, and 1 tablespoon of chia seeds until smooth and creamy.",
+      "Pour the mixture into a bowl and stir in the remaining 1 tablespoon of chia seeds.",
+      "Freeze for 3-4 hours, or until firm.",
+      "Scoop, serve, and enjoy!"
+    ],
+    "note": "A clever way to sneak protein and fibre into a dessert - the chia seeds slow digestion and the Greek yogurt bumps up the protein without wrecking your macros. A treat that still works in your favour."
+  },
+  {
+    "title": "Bang Bang Chicken Wraps",
+    "slug": "bang-bang-chicken-wraps",
+    "phase": "Post-Training",
+    "category": "lunch",
+    "description": "High-protein bang bang chicken wraps — batch-prep five, freeze, then crisp in the air fryer.",
+    "servings": 5,
+    "mins": 30,
+    "kcal": 350,
+    "p": 36,
+    "c": 42,
+    "f": 6,
+    "ingredients": [
+      "5 tortilla wraps",
+      "600g chicken breast, diced",
+      "1 pepper, diced",
+      "1 onion, diced",
+      "1 tin (258g) sweetcorn, drained",
+      "60g sweet chilli sauce",
+      "60g sriracha",
+      "30ml rice wine vinegar",
+      "60g fat-free Greek yoghurt",
+      "Salt",
+      "Pepper",
+      "Paprika",
+      "Garlic powder"
+    ],
+    "method": [
+      "Dice the chicken and fry on medium-high heat for 4-5 mins, seasoning with salt, pepper, paprika and garlic powder. Once cooked through, set aside.",
+      "Dice the onion and pepper, then fry on medium heat for 4-5 mins in the same pan, seasoning again.",
+      "Mix the chicken, onion and pepper together until fully combined.",
+      "Turn off the heat and add the sweetcorn and all the bang bang sauce ingredients. Mix fully.",
+      "Taste and add more seasoning if needed.",
+      "Let the mixture cool, then place one wrap in the centre of a chopping board.",
+      "Add 1/5 of the chicken mix to the centre and roll into a burrito.",
+      "Repeat until all the mix is used.",
+      "Wrap in foil to store, or pan-fry 3 mins each side / air fry 6-7 mins at 190C until hot and crisp.",
+      "Serve and enjoy.",
+      "To reheat from chilled: unwrap and air fry 6 mins at 190C.",
+      "From frozen: leave in the foil and cook for 12 minutes."
+    ],
+    "note": "Cracking high-protein batch-prep — makes five, freezer-friendly, sauce built right in. Macros are estimated from the ingredient list (the source gave costs, not nutrition), so treat them as a close guide rather than exact."
+  },
+  {
+    "title": "Cheat's Gyros",
+    "slug": "cheats-gyros",
+    "phase": "Post-Training",
+    "category": "dinner",
+    "description": "A quick Greek-style gyro built on a sandwich press or frying pan, loaded with mince, feta, salad and homemade tzatziki.",
+    "servings": 1,
+    "mins": 25,
+    "kcal": 920,
+    "p": 105,
+    "c": 55,
+    "f": 35,
+    "ingredients": [
+      "500g mince of choice (lean beef mince)",
+      "1 packet Greek BBQ rub seasoning",
+      "Greek-style flatbreads or wraps",
+      "Tzatziki (store-bought or homemade)",
+      "Air fryer potato chips",
+      "1 cos lettuce, shredded",
+      "2 tomatoes, sliced",
+      "1 Lebanese cucumber, sliced",
+      "1/2 large red onion, sliced",
+      "1/2 block feta",
+      "Fresh dill and/or parsley",
+      "Black olives, to serve",
+      "Homemade tzatziki: 1 cup yoghurt of choice",
+      "1 Lebanese cucumber, grated and drained",
+      "1-2 garlic cloves, crushed",
+      "1 tbsp lemon juice",
+      "Fresh herbs of choice",
+      "Salt and pepper, to season"
+    ],
+    "method": [
+      "Press a thin, even layer of mince onto one side of each flatbread or wrap.",
+      "Transfer to a sandwich press, cooking for 2-4 minutes, or until completely browned, cooked through and golden. Alternatively, cook mince side down in a frying pan for 3-4 minutes before flipping and cooking for a further 1-2 minutes.",
+      "Top with tzatziki, your favourite salad fillings, feta, fresh herbs and a handful of air fryer chips if using.",
+      "Finish with a squeeze of lemon juice and enjoy!"
+    ],
+    "note": "A big, satisfying plate that still keeps protein high thanks to lean mince and Greek yoghurt tzatziki over heavier sauces. Macros are estimated for the full recipe as listed (serves 1) — this is a hearty portion, so split it across two meals if you're managing a calorie target."
+  },
+  {
+    "title": "Chicken Shawarma",
+    "slug": "chicken-shawarma",
+    "phase": "Post-Training",
+    "category": "dinner",
+    "description": "Marinated chicken thigh shawarma with a quick garlic yoghurt sauce, wrapped in flatbread.",
+    "servings": 4,
+    "mins": 55,
+    "kcal": 600,
+    "p": 38,
+    "c": 52,
+    "f": 24,
+    "ingredients": [
+      "Chicken thighs",
+      "Tomato paste",
+      "Cumin",
+      "Coriander",
+      "Smoked paprika",
+      "Turmeric",
+      "Ground cloves",
+      "Cinnamon",
+      "Salt",
+      "Black pepper",
+      "Garlic",
+      "Lemon juice",
+      "Vinegar",
+      "Oil",
+      "Yogurt",
+      "Flatbread",
+      "Pickles",
+      "Red onion",
+      "Parsley",
+      "Pomegranate molasses",
+      "Milk"
+    ],
+    "method": [
+      "Slice the chicken thighs into strips.",
+      "Add tomato paste to a bowl with cumin, coriander, smoked paprika, turmeric, ground cloves, cinnamon, salt and black pepper.",
+      "Chop some garlic and squeeze in lemon juice.",
+      "Add some vinegar and oil, then give it a good mix.",
+      "Add the chicken and make sure it's fully coated.",
+      "Add yogurt to the mixture — that's the marinade done.",
+      "Best left to marinate overnight, but you can use it straight away.",
+      "Spread the chicken on a tray, spread it out evenly and spray with oil.",
+      "Bake for about 30 to 35 minutes.",
+      "For the sauce: add yogurt to a bowl, chop in garlic, add salt, parsley and lemon juice and mix.",
+      "Add a splash of milk if you want it runnier — that's the sauce done.",
+      "Once the chicken's ready, grill it to char a little.",
+      "Top flatbread with the chicken, pickles, red onion, parsley and pomegranate molasses, then wrap it up tight.",
+      "Brush with the pan juices, then toast until nice and crispy."
+    ],
+    "note": "Big flavour on a lean chicken-thigh base. Heads up: the source listed no quantities, so these macros are a considered estimate for a loaded flatbread — use them as a ballpark, not gospel, especially the carbs."
+  },
+  {
+    "title": "Chicken Spring Rolls",
+    "slug": "chicken-spring-rolls",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "Fresh, crunchy, and light enough to eat four of without blowing your day. The sriracha mayo is doing a lot of the heavy lifting here.",
+    "servings": 24,
+    "mins": 50,
+    "kcal": 160,
+    "p": 18,
+    "c": 7,
+    "f": 6,
+    "ingredients": [
+      "650g boneless, skinless chicken thighs, fat trimmed off",
+      "2 tsp paprika",
+      "1 tsp garlic powder",
+      "1 tsp onion powder",
+      "1/2 tsp chilli powder",
+      "1 tsp salt",
+      "20ml soy sauce",
+      "1 tbsp rice vinegar",
+      "Cooking spray",
+      "8 rice paper sheets",
+      "Salad leaves, to taste",
+      "60g cucumber, cut into matchsticks",
+      "60g carrot, cut into matchsticks",
+      "1/4 sweet bell pepper, thinly sliced",
+      "1/4 red onion, thinly sliced",
+      "Fresh coriander",
+      "1/2 avocado, thinly sliced",
+      "250g 0% fat Greek yoghurt",
+      "3 tbsp light mayo",
+      "2 tbsp sriracha",
+      "1 tbsp rice vinegar",
+      "1 tbsp low-sodium soy sauce",
+      "1 tsp sesame oil",
+      "1 tbsp honey"
+    ],
+    "method": [
+      "Add the chicken thighs to a tray and coat with cooking spray.",
+      "Mix the paprika, garlic powder, onion powder, chilli powder, salt, soy sauce and rice vinegar together and coat the chicken.",
+      "Bake or air fry the chicken at 200°C for 20-25 minutes (oven) or 15-18 minutes (air fryer).",
+      "Soak the rice paper sheets in water until soft.",
+      "Load the soaked rice paper with your vegetables of choice, without overfilling.",
+      "Add the sliced chicken and avocado along with fresh herbs.",
+      "Roll the rice paper once, fold in the sides, and finish rolling to form the spring roll.",
+      "For the sriracha mayo, blend the Greek yoghurt, light mayo, sriracha, rice vinegar, soy sauce, sesame oil and honey until smooth."
+    ],
+    "note": "These are light enough to fit almost anywhere in the day — good for the flex bank when you want volume and crunch without spending many calories on it."
+  },
+  {
+    "title": "Chocolate Fudge Brownie Overnight Oats",
+    "slug": "chocolate-fudge-brownie-overnight-oats",
+    "phase": "Post-Training",
+    "category": "breakfast",
+    "description": "Dessert for breakfast, minus the regret. Prep it the night before and it's ready before you've had your first coffee.",
+    "servings": 4,
+    "mins": 10,
+    "kcal": 446,
+    "p": 41,
+    "c": 55,
+    "f": 9,
+    "ingredients": [
+      "200g oats",
+      "450g fat-free Greek yoghurt",
+      "100g chocolate protein powder",
+      "40g cocoa powder",
+      "40g chocolate chips",
+      "240ml skimmed milk"
+    ],
+    "method": [
+      "Combine 50g of oats and 60ml of milk into each container and press down to form a base.",
+      "Add 10g cocoa powder, 25g protein powder, 113g Greek yoghurt and 10g chocolate chips to each container. Mix until fully combined.",
+      "Add any remaining chocolate chips over the top.",
+      "Put the lid on and place in the fridge until ready to eat."
+    ],
+    "note": "This is the highest-protein breakfast in the lineup — good one for a low-appetite morning where a big cooked breakfast feels like too much, but you still need to hit your number early in the day."
+  },
+  {
+    "title": "Cottage Cheese and Banana Bake",
+    "slug": "cottage-cheese-banana-bake",
+    "phase": "Everyday",
+    "category": "breakfast",
+    "description": "A blended, oven-baked breakfast bake using cottage cheese, Greek yoghurt and eggs for a protein-forward, naturally sweet start to the day.",
+    "servings": 4,
+    "mins": 50,
+    "kcal": 160,
+    "p": 14,
+    "c": 14,
+    "f": 6,
+    "ingredients": [
+      "1 cup cottage cheese (about 220-240g)",
+      "1/2 cup plain Greek yoghurt (about 120g)",
+      "1 ripe banana (about 100-120g)",
+      "Optional: 2 tbsp honey or maple syrup, for extra sweetness",
+      "2 large eggs",
+      "1/4 cup oat flour (about 25-30g)",
+      "Berries or fruit of your choice, optional"
+    ],
+    "method": [
+      "Preheat the oven to 350F / 175C.",
+      "Add the cottage cheese, Greek yoghurt, banana, eggs and oat flour to a blender and blend until completely smooth.",
+      "Let the batter sit for 5-10 minutes so the oat flour can absorb some moisture.",
+      "Pour into a lined small baking dish or a 6-inch pan. Add berries or fruit on top, if using.",
+      "Bake for 35-45 minutes, or until the edges are set and the centre is only slightly soft.",
+      "Let it cool completely, then refrigerate for 2-3 hours, or ideally overnight, before slicing."
+    ],
+    "note": "A genuinely easy make-ahead breakfast — blend, bake, slice through the week. Macros are estimated without the optional honey; add roughly 30 cal and 8g carbs per serving if a client sweetens it."
+  },
+  {
+    "title": "Cottage Cheese Bagels (High-Protein & No Yeast)",
+    "slug": "cottage-cheese-bagels-high-protein-no-yeast",
+    "phase": "Everyday",
+    "category": "breakfast",
+    "description": "Two-ingredient dough bagels made with blended cottage cheese and self-rising flour - no yeast required.",
+    "servings": 4,
+    "mins": 30,
+    "kcal": 189,
+    "p": 11,
+    "c": 25,
+    "f": 4,
+    "ingredients": [
+      "1 Cup Full-fat cottage cheese, 2% works too, strained",
+      "1 Cup Self-rising flour",
+      "1 egg, used as egg wash if using toppings",
+      "Everything Bagel seasoning, optional topping, sesame seeds, etc"
+    ],
+    "method": [
+      "Preheat oven to 375F and line a sheet pan with parchment paper.",
+      "In a blender, add the 1 Cup Full-fat cottage cheese and blend until smooth.",
+      "Transfer the cottage cheese to a large mixing bowl and add the 1 Cup Self-rising flour.",
+      "Mix the flour and blended cottage cheese with your hands or a spatula until well combined. The dough may be a bit sticky. Add 1-2 tablespoons of flour if needed to be able to handle the dough.",
+      "Transfer onto a lightly floured flat surface and knead a few times until you are able to form a ball. You may use 1-2 tablespoons of flour if needed to handle the dough.",
+      "Divide the dough into 4 equal parts. Form a ball, create a hole in each one using your finger, and gently pull it apart to form a bagel shape.",
+      "Brush some egg wash (from 1 egg) over each bagel and top with sesame seeds or Everything Bagel seasoning.",
+      "Place the bagels onto the prepared sheet pan and bake for 25-28 minutes or until golden brown.",
+      "Allow the bagels to cool for 10 minutes before slicing. Enjoy."
+    ],
+    "note": "No yeast, no faff - just a solid protein bump to your morning bread fix. Great base for eggs or a lean deli filling."
+  },
+  {
+    "title": "Cottage Cheese Snickers Bars",
+    "slug": "cottage-cheese-snickers-bars",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "No-bake protein bars layered with peanut butter, crushed peanuts and melted chocolate.",
+    "servings": 12,
+    "mins": 20,
+    "kcal": 181,
+    "p": 10,
+    "c": 11,
+    "f": 12,
+    "ingredients": [
+      "1 cup cottage cheese (blended smooth)",
+      "1 cup almond flour (add more if needed)",
+      "2 scoops vanilla protein powder",
+      "1/4 cup peanut butter",
+      "2 tbsp maple syrup (add more if you prefer sweet)",
+      "1/3 cup crushed peanuts",
+      "1/2 cup chocolate chips",
+      "1 tsp coconut oil"
+    ],
+    "method": [
+      "Blend cottage cheese until completely smooth.",
+      "Mix with almond flour, protein powder, peanut butter and maple syrup until a thick dough forms.",
+      "Press into a lined loaf pan.",
+      "Sprinkle crushed peanuts on top and press them in slightly.",
+      "Freeze for 1-2 hours until firm.",
+      "Melt chocolate chips with coconut oil and pour over top.",
+      "Freeze again until set, then slice into bars.",
+      "If the mixture feels too wet, add a bit more almond flour before pressing into the pan.",
+      "Store in the fridge or freezer."
+    ],
+    "note": "A solid grab-and-go snack when you fancy something sweet - decent protein hit but this one leans more indulgence than staple, so keep it to one bar and count it in your daily macros."
+  },
+  {
+    "title": "Creamy Paprika Chicken & Fries",
+    "slug": "creamy-paprika-chicken-fries",
+    "phase": "Everyday",
+    "category": "dinner",
+    "description": "Seared chicken in a rich paprika cream sauce — a proper protein-forward comfort plate.",
+    "servings": 4,
+    "mins": 30,
+    "kcal": 627,
+    "p": 60,
+    "c": 3,
+    "f": 40,
+    "ingredients": [
+      "1 1/2 lb chicken breast (or thighs), sliced",
+      "2 tbsp olive oil",
+      "2 tsp paprika",
+      "1 tsp garlic powder",
+      "1/2 tsp onion powder",
+      "Salt & black pepper",
+      "1 cup heavy cream",
+      "1/2 cup chicken broth",
+      "2 tbsp cream cheese (optional)",
+      "1/2 cup grated parmesan (optional)",
+      "1 tsp Dijon mustard (optional)",
+      "1 tbsp chopped parsley (garnish)"
+    ],
+    "method": [
+      "Season chicken: toss with paprika, garlic powder, onion powder, salt, and pepper.",
+      "Sear chicken: heat olive oil in a skillet, cook chicken 4-5 min per side until browned, then remove.",
+      "Make sauce: in the same pan add broth and cream, stir in cream cheese/parmesan if using, simmer 3-4 minutes.",
+      "Combine: add chicken back to the sauce and simmer 3-5 minutes until thick and creamy.",
+      "Serve: sprinkle parsley and serve with crispy fries."
+    ],
+    "note": "This one leans hard into protein — 60g a serving before you've even touched the fries. Keep the fries portion modest and this fuels a serious training day without derailing anything. Macros below cover the chicken and sauce only — the source recipe didn't specify a fries quantity, so add roughly 30g carbs if you go heavy on them."
+  },
+  {
+    "title": "Crispy Chicken Caesar Smash",
+    "slug": "crispy-chicken-caesar-smash",
+    "phase": "Everyday",
+    "category": "dinner",
+    "description": "Crispy panko-crusted ground chicken smash tacos topped with a lightened-up Caesar salad.",
+    "servings": 7,
+    "mins": 25,
+    "kcal": 236,
+    "p": 20,
+    "c": 17,
+    "f": 9,
+    "ingredients": [
+      "16 oz ground chicken",
+      "1 cup panko breadcrumbs",
+      "2 tsp salt",
+      "1 tsp garlic powder",
+      "1 tsp onion powder",
+      "1 tsp oregano",
+      "0.5 tsp black pepper",
+      "1 head romaine lettuce, chopped",
+      "1 cup non-fat Greek yogurt",
+      "3 tbsp lite mayo",
+      "2 tbsp Dijon mustard",
+      "1 tbsp Worcestershire sauce",
+      "20 g grated Parmesan",
+      "1 tbsp garlic paste",
+      "2 tsp salt",
+      "1 tsp black pepper",
+      "2 tsp lemon juice"
+    ],
+    "method": [
+      "Season your ground chicken with your seasonings.",
+      "Layer your panko onto a flat plate and rotate your taco back and forth on the panko until the chicken is fully coated.",
+      "Cook on medium heat for ~5 minutes. Then flip and cook for another 2 minutes until crispy.",
+      "While that cooks, prepare your low-calorie Caesar dressing with your nonfat Greek yogurt, light mayo, Dijon mustard, Worcestershire sauce, salt, pepper, garlic paste, lemon juice, and your freshly grated Parmesan cheese. Mix in your chopped romaine lettuce.",
+      "Once your tacos are crispy, top off with your caesar salad and enjoy."
+    ],
+    "note": "A great protein-forward main - lean ground chicken with a lightened Caesar dressing keeps this satisfying without the usual fried-taco calorie hit. Solid pick for a protein-first dinner."
+  },
+  {
+    "title": "Crispy Chicken Rice Paper Dumplings",
+    "slug": "crispy-chicken-rice-paper-dumplings",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "Crunchy, punchy, no deep-fat fryer in sight. These use rice paper instead of pastry, so you get the crispy shell without the calorie hit — good for prepping ahead and snacking through the week.",
+    "servings": 6,
+    "mins": 40,
+    "kcal": 179,
+    "p": 9,
+    "c": 12,
+    "f": 10,
+    "ingredients": [
+      "250g chicken mince",
+      "2 spring onions, diced",
+      "1 garlic clove, finely chopped",
+      "10g ginger, finely chopped",
+      "Small bunch coriander, finely chopped",
+      "1 red chilli, seeds removed, finely chopped",
+      "2 tsp soy sauce",
+      "1 tsp honey",
+      "1 tsp oyster sauce",
+      "1 tsp sesame oil",
+      "6 rice paper sheets",
+      "Black and white sesame seeds, for coating",
+      "1 tbsp peanut butter",
+      "1 tbsp honey",
+      "1 tbsp soy sauce",
+      "1/2 lime, juice only",
+      "2 tbsp coconut milk",
+      "1-2 tsp sriracha"
+    ],
+    "method": [
+      "Mix the chicken mince with the spring onion, coriander, chilli, garlic, ginger, soy sauce, honey, oyster sauce and sesame oil.",
+      "Soak a rice paper sheet in warm water for 30 seconds to 1 minute until malleable. Lay on a damp chopping board, add a heaped tablespoon of the chicken mince, and roll tightly into a parcel. Repeat until all the mince is used.",
+      "Lightly spray with oil and coat in sesame seeds. Air fry for 17-20 minutes at 200°C until golden and crispy.",
+      "For the peanut sauce, blend the peanut butter, honey, soy sauce, lime juice, coconut milk and sriracha until smooth."
+    ],
+    "note": "Rice mince dumplings like this are a solid pre-workout snack — enough protein to blunt hunger, light enough not to sit heavy before you train. Dip in the peanut sauce for extra calories if you're not cutting."
+  },
+  {
+    "title": "Easy Berry Cake",
+    "slug": "easy-berry-cake",
+    "phase": "Pre-Training",
+    "category": "snack",
+    "description": "A simple olive-oil and Greek yoghurt sponge loaded with three kinds of berries.",
+    "servings": 8,
+    "mins": 65,
+    "kcal": 520,
+    "p": 11,
+    "c": 72,
+    "f": 21,
+    "ingredients": [
+      "150ml olive oil",
+      "170g caster sugar",
+      "3 eggs",
+      "300g Greek yogurt",
+      "1 1/2 tsp vanilla extract",
+      "360g plain flour",
+      "14g baking powder",
+      "1/2 tsp salt",
+      "425g blueberries",
+      "200g raspberries",
+      "175g blackberries",
+      "20g caster sugar, for sprinkling"
+    ],
+    "method": [
+      "Preheat the oven to 180C (conventional heat) and grease and line a 26cm springform tin.",
+      "Whisk the eggs and sugar until light and fluffy. Slowly whisk in the olive oil, then stir in the Greek yogurt and vanilla.",
+      "Fold in the flour, baking powder and salt until just combined, then gently fold in the berries.",
+      "Pour the batter into the tin, sprinkle with the caster sugar and bake for 45-50 minutes, or until a skewer inserted into the centre comes out clean.",
+      "Let the cake cool in the tin for 15 minutes before removing."
+    ],
+    "note": "A proper treat, not an everyday one — high in carbs from the sugar and flour. Macros estimated per slice (serves 8). Enjoy a slice, don't demolish the tin."
+  },
+  {
+    "title": "Feta and Tomato Cottage Cheese Bread",
+    "slug": "feta-tomato-cottage-cheese-bread",
+    "phase": "Pre-Training",
+    "category": "breakfast",
+    "description": "A quick single-serve savoury bread using cottage cheese and self-raising flour, studded with feta, tomato and basil — air fryer or oven.",
+    "servings": 1,
+    "mins": 30,
+    "kcal": 320,
+    "p": 14,
+    "c": 50,
+    "f": 6,
+    "ingredients": [
+      "3 heaped tbsp (60g) self-raising flour (or plain/all purpose flour with 1/2 tsp baking powder)",
+      "2 tbsp (50g) cottage cheese",
+      "1 tbsp chopped feta",
+      "1 tbsp chopped tomato",
+      "1 tsp basil"
+    ],
+    "method": [
+      "Mix everything in a bowl so it clumps together.",
+      "Use your hands to squeeze the dough into a boule shape. It should not be soft or sticky — add more flour if it is. Score on top with a sharp knife.",
+      "Air fry at 180C for 20 minutes (air fry mode) or oven bake at 180C for 35 minutes. If it is not cooked in the middle, turn it over and cook for a further 3-5 minutes without baking paper underneath."
+    ],
+    "note": "A handy single-serve savoury bake for clients who want something other than eggs on toast but still want protein in the mix from the cottage cheese and feta."
+  },
+  {
+    "title": "Garlic Parmesan Chicken Tenders",
+    "slug": "garlic-parmesan-chicken-tenders",
+    "phase": "Everyday",
+    "category": "dinner",
+    "description": "Crispy oven-baked tenders without the takeaway fat. Protein-first, family-friendly.",
+    "servings": 2,
+    "mins": 30,
+    "kcal": 420,
+    "p": 48,
+    "c": 18,
+    "f": 16,
+    "ingredients": [
+      "500g chicken mini fillets",
+      "40g grated parmesan",
+      "30g panko breadcrumbs",
+      "2 garlic cloves, crushed",
+      "1 egg, beaten",
+      "1 tsp smoked paprika",
+      "Salt and black pepper",
+      "Spray oil"
+    ],
+    "method": [
+      "Heat oven to 200C fan. Line a tray and spray with oil.",
+      "Mix parmesan, panko, garlic, paprika, salt and pepper in a shallow bowl.",
+      "Dip each fillet in egg, then press into the crumb mix.",
+      "Lay on the tray, spray the tops, bake 18-20 mins until golden and cooked through.",
+      "Serve with rice or a big salad."
+    ],
+    "note": "Oven-baked, not fried - you keep the crunch and drop about 20g of fat versus the takeaway version. Pair with carbs on training days."
+  },
+  {
+    "title": "Healthy Sweet Potato Cereal",
+    "slug": "healthy-sweet-potato-cereal",
+    "phase": "Everyday",
+    "category": "breakfast",
+    "description": "A crunchy, oven-baked granola-style cereal made from roasted sweet potato, oats and honey — no refined sugar, no seed oils.",
+    "servings": 6,
+    "mins": 65,
+    "kcal": 209,
+    "p": 5,
+    "c": 38,
+    "f": 5,
+    "ingredients": [
+      "1 medium-large sweet potato (260g cooked puree)",
+      "180g rolled oats (organic, glyphosate-free)",
+      "20g butter, melted",
+      "60g raw honey (40g used in mix, 20g drizzled after baking)",
+      "1 tbsp vanilla extract",
+      "Pinch of sea salt"
+    ],
+    "method": [
+      "Roast the sweet potato at 200C for 45-60 mins until completely soft. Scoop out 260g flesh and mash/blend until smooth.",
+      "Pro tip: chill the sweet potato puree overnight (or at least 30 minutes) before mixing — this reduces moisture, giving a crunchier cereal.",
+      "Preheat oven to 180C. Mix together the sweet potato, oats, butter, 40g honey, vanilla and sea salt until thoroughly combined.",
+      "Press the mixture firmly onto a lined baking tray into a 1-1.5cm thick rectangle.",
+      "Bake for 20-25 mins until set and lightly golden.",
+      "While still warm, break into clusters. Drizzle over the remaining 20g honey, toss lightly and spread back onto the tray.",
+      "Bake for another 15-25 mins, turning every 5-10 mins, until deep golden and crisp.",
+      "Cool completely, serve with milk and enjoy!"
+    ],
+    "note": "Source listed \"Serves: 316\" which is clearly a data-entry error from the export — corrected to 6 realistic portions and macros estimated on that basis. Good grab-and-go cereal alternative for clients who miss a crunchy breakfast but want to ditch the ultra-processed stuff."
+  },
+  {
+    "title": "High Protein Biscoff Cheesecake",
+    "slug": "high-protein-biscoff-cheesecake",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "A no-bake single-portion cheesecake using low-fat cream cheese, Skyr yoghurt and protein powder for a Biscoff treat that fits your macros.",
+    "servings": 2,
+    "mins": 20,
+    "kcal": 245,
+    "p": 19,
+    "c": 21,
+    "f": 9,
+    "ingredients": [
+      "4.5 Biscoff biscuits",
+      "10g Biscoff spread",
+      "Almond milk (as needed)",
+      "70g low-fat Philadelphia cheese (cream cheese)",
+      "40g 0% Skyr yoghurt",
+      "1 scoop vanilla protein powder (~30g)"
+    ],
+    "method": [
+      "Crush up 4.5 Biscoff biscuits in a bowl and add 7-8ml of almond milk.",
+      "Make a foil circle and press the Biscoff mix down as a base.",
+      "In a bowl, mix light cream cheese, Skyr yoghurt and protein powder together, then layer that on top of the base.",
+      "Peel off the foil circle.",
+      "Mix 10g of Biscoff spread with 5ml of almond milk.",
+      "Spread that over the top of the cream cheese mix.",
+      "Crumble half a Biscoff biscuit on top and enjoy!"
+    ],
+    "note": "Protein powder wasn't listed in the ingredients but is used in the method, so one scoop (~30g vanilla) has been added and macros estimated on that basis — worth double-checking against whatever protein powder the client actually uses. A genuinely useful treat recipe for men managing a sweet tooth on a cut."
+  },
+  {
+    "title": "High Protein Chilli Lime Shrimp Bowls",
+    "slug": "high-protein-chilli-lime-shrimp-bowls",
+    "phase": "Post-Training",
+    "category": "lunch",
+    "description": "Grilled chilli-spiced shrimp bowls with mango pineapple salsa, mashed avocado and a creamy chilli lime sauce.",
+    "servings": 4,
+    "mins": 0,
+    "kcal": 597,
+    "p": 50,
+    "c": 70,
+    "f": 13,
+    "ingredients": [
+      "For the shrimp:",
+      "700g raw shrimp/prawns",
+      "1 tsp garlic powder",
+      "1 tsp smoked paprika",
+      "1 tsp oregano",
+      "1/2 tsp cayenne pepper",
+      "1 tsp black pepper",
+      "1 tsp salt",
+      "Cooking spray (roughly 1 tsp oil)",
+      "For the mango pineapple salsa:",
+      "100g tomato, diced",
+      "1/2 red onion, diced",
+      "150g diced pineapple (canned in juice works well)",
+      "150g diced mango",
+      "2 tbsp coriander/cilantro, chopped",
+      "1/2 lime, juiced",
+      "Salt to taste",
+      "For the chilli lime sauce:",
+      "100g 0% Greek yoghurt",
+      "30g light mayo",
+      "2 tsp sriracha",
+      "15ml soy sauce",
+      "1 tsp sesame oil",
+      "1 tbsp coriander/cilantro, chopped",
+      "Black pepper to taste",
+      "1/2 lime, juiced",
+      "1 tsp honey",
+      "Water, to loosen",
+      "To serve:",
+      "6 tbsp mashed avocado (roughly 3/4 avocado)"
+    ],
+    "method": [
+      "Toss the shrimp with the garlic powder, smoked paprika, oregano, cayenne, black pepper and salt.",
+      "Spray a pan or air fryer basket with cooking oil and cook the shrimp until pink and cooked through, about 3-4 minutes per side.",
+      "Mix the diced tomato, red onion, pineapple, mango and coriander with the lime juice and a pinch of salt to make the mango pineapple salsa.",
+      "Whisk together the Greek yoghurt, light mayo, sriracha, soy sauce, sesame oil, coriander, black pepper, lime juice and honey, thinning with water to a drizzling consistency, to make the chilli lime sauce.",
+      "Divide the shrimp between bowls, then top with the mango pineapple salsa, mashed avocado and a drizzle of the chilli lime sauce.",
+      "For meal prep: store the salsa and sauce separately and hold back the avocado until serving. Refrigerate for up to 4 days.",
+      "To reheat, microwave partially covered for 2-3 minutes, then add the salsa, avocado and sauce."
+    ],
+    "note": "Shrimp is one of the leanest protein sources going, so you get a big protein hit here without the calorie tax - perfect for staying on track without feeling like you are dieting. Note: the source only listed storage/reheating steps, so I have filled in the cooking method from the ingredient list."
+  },
+  {
+    "title": "High Protein Crispy Honey Garlic Chicken Fried Rice",
+    "slug": "high-protein-crispy-honey-garlic-chicken-fried-rice",
+    "phase": "Post-Training",
+    "category": "dinner",
+    "description": "Crispy air-fried honey garlic chicken tossed through high-protein egg fried rice.",
+    "servings": 7,
+    "mins": 0,
+    "kcal": 535,
+    "p": 47,
+    "c": 69,
+    "f": 8,
+    "ingredients": [
+      "1.05kg diced boneless, skinless chicken breast (raw weight)",
+      "35ml salt-reduced soy sauce (e.g. Kikkoman)",
+      "2 garlic cloves, minced",
+      "1/2 tsp black pepper",
+      "1 tsp onion powder",
+      "1 tsp garlic powder",
+      "100g potato starch (only around 40g will stick to the chicken)",
+      "500g frozen mixed vegetables",
+      "4 whole eggs plus 200g egg whites (or 5 whole eggs)",
+      "30g spring onion, white part only",
+      "980g day-old cooked white rice",
+      "40ml salt-reduced soy sauce",
+      "20g spring onion, green part only",
+      "For the honey garlic sauce:",
+      "5 garlic cloves, minced",
+      "60ml salt-reduced soy sauce",
+      "60ml water",
+      "100g reduced sugar ketchup",
+      "25ml rice wine vinegar",
+      "1 tsp cornflour mixed with 80ml water",
+      "80g honey"
+    ],
+    "method": [
+      "Mix the chicken with the salt-reduced soy sauce, garlic, black pepper and onion powder.",
+      "Transfer to a ziplock bag with the potato starch and mix until the chicken is fully coated.",
+      "Spray with a light coating of cooking oil and air fry until golden and crispy.",
+      "In a pan over medium heat, add the frozen mixed vegetables followed by the mixed eggs and egg whites.",
+      "Let it cook through, stirring to combine.",
+      "Add the white part of the spring onion, then the day-old cooked rice.",
+      "Add a little soy sauce and mix well, then stir through the green part of the spring onion.",
+      "For the honey garlic sauce, add the garlic, soy sauce, water, ketchup and rice vinegar to a pan over medium heat. Stir in the cornflour mixed with water to thicken, then take off the heat and stir through the honey.",
+      "Toss the crispy chicken through the sauce, then divide everything into seven equal servings."
+    ],
+    "note": "Air-frying the chicken keeps it crispy without drowning it in oil, and stacking egg whites into the rice is an easy way to push the protein up on a meal-prep staple. Macros are estimated from standard nutrition values as no per-serving figures were given in the source."
+  },
+  {
+    "title": "High Protein SmashBurger Tacos",
+    "slug": "high-protein-smashburger-tacos",
+    "phase": "Post-Training",
+    "category": "dinner",
+    "description": "Lean ground beef smashed straight onto tortillas in the pan with melted cheddar, lettuce, onion and a zero-sugar cocktail sauce.",
+    "servings": 2,
+    "mins": 20,
+    "kcal": 490,
+    "p": 38,
+    "c": 33,
+    "f": 21,
+    "ingredients": [
+      "4 small tortillas",
+      "300g lean ground beef",
+      "30g light cheddar cheese",
+      "40g lettuce",
+      "1/2 onion",
+      "30g cocktail sauce (zero sugar)"
+    ],
+    "method": [
+      "Spread the lean ground beef out onto the tortillas.",
+      "Put the tortillas beef-side down in a pre-heated pan. Switch sides after 3 minutes and put the cheddar on top for another 2 minutes.",
+      "Let it rest, then top with lettuce, onion and sauce."
+    ],
+    "note": "Simple pan-smash method, no marinating or waiting around — good one for a fast weeknight dinner. Zero-sugar cocktail sauce keeps the carbs down versus a standard burger sauce."
+  },
+  {
+    "title": "High-Protein Big Mac Tacos",
+    "slug": "high-protein-big-mac-tacos",
+    "phase": "Post-Training",
+    "category": "dinner",
+    "description": "Smash-patty beef cooked directly into mini tortillas, dressed up Big Mac-style with a light burger sauce, pickles and cheese.",
+    "servings": 6,
+    "mins": 25,
+    "kcal": 437,
+    "p": 33,
+    "c": 42,
+    "f": 13,
+    "ingredients": [
+      "100g extra lean beef mince per serving",
+      "2 Old El Paso mini flour tortillas per serving",
+      "15g light shredded cheddar per serving",
+      "Sliced dill pickles, to taste",
+      "Iceberg lettuce, shredded",
+      "Cherry tomatoes, chopped",
+      "Red onion, finely diced",
+      "Light Greek yoghurt (for the sauce)",
+      "Tomato sauce, mustard and garlic powder (burger sauce)"
+    ],
+    "method": [
+      "Smash the patty (mince) directly onto the tortilla and cook in a hot pan, patty-side down first.",
+      "Flip and finish cooking through, adding cheese in the last minute to melt.",
+      "Mix light Greek yoghurt with tomato sauce, mustard and garlic powder for the burger sauce.",
+      "Build each taco with lettuce, pickles, tomatoes, onion and a drizzle of burger sauce."
+    ],
+    "note": "Source PDF had no quantities at all — just ingredient names for 6 servings. Amounts and macros above are a sensible estimate for a 100g-mince smash taco per serving; correct these if you know the actual amounts used."
+  },
+  {
+    "title": "High-Protein Tuna and Egg Recipe",
+    "slug": "high-protein-tuna-and-egg-recipe",
+    "phase": "Everyday",
+    "category": "lunch",
+    "description": "A protein-packed tuna, egg and cream cheese mix with cucumber and dill, served in pita or flatbread.",
+    "servings": 1,
+    "mins": 10,
+    "kcal": 867,
+    "p": 97,
+    "c": 20,
+    "f": 44,
+    "ingredients": [
+      "10 g fats",
+      "2 tins tuna in water, drained",
+      "4 eggs",
+      "100 g light cream cheese",
+      "50 g cucumber, chopped",
+      "50 g red onion, finely chopped",
+      "Fresh dill, to taste",
+      "Juice of 1 lemon",
+      "Optional: a cheeky bit of Nando's sauce"
+    ],
+    "method": [
+      "Drain the tuna from the tins.",
+      "In a mixing bowl, combine the drained tuna, eggs, light cream cheese, chopped cucumber, finely chopped red onion, fresh dill, and the juice of one lemon.",
+      "Mix all the ingredients together until well combined.",
+      "Season with salt and pepper to taste.",
+      "If desired, add a bit of Nando's sauce for extra flavor.",
+      "Serve the mixture in pita bread, flatbread, or on its own."
+    ],
+    "note": "A serious protein hit in one bowl - brilliant post-training or as a big meal-prep base. Macros are estimated from standard tuna, egg and cream cheese values since the source gave no per-serving breakdown."
+  },
+  {
+    "title": "My Easy Greek Yoghurt Choc Chip Scone",
+    "slug": "greek-yoghurt-choc-chip-scone",
+    "phase": "Pre-Training",
+    "category": "snack",
+    "description": "A quick 3-ingredient scone made with self-raising flour, Greek yoghurt and chocolate chips.",
+    "servings": 1,
+    "mins": 15,
+    "kcal": 330,
+    "p": 10,
+    "c": 56,
+    "f": 7,
+    "ingredients": [
+      "60g (3 heaped tbsp) self-raising flour (or plain flour with 1/2 tsp baking powder)",
+      "50g (2 tbsp) Greek or soya yoghurt",
+      "A handful of chocolate chips"
+    ],
+    "method": [
+      "Mix everything in a bowl to make a thick dough.",
+      "Use your hands to squeeze the dough into a ball - it should be soft and smooth, not sticky. Add more flour if needed.",
+      "Flatten it out into a triangular shape using your hands.",
+      "Air fry at 180C for 12-15 minutes, or oven bake at 180C for 30 minutes. If it is still doughy in the middle, turn it over and cook for a further 3-5 minutes."
+    ],
+    "note": "A quick 3-ingredient scone that leans on Greek yoghurt for a protein boost rather than butter and cream - handy for a sweet treat that will not wreck your macros. Macros are estimated per serving as no nutrition figures were given in the source."
+  },
+  {
+    "title": "Naan Meal Prep",
+    "slug": "naan-meal-prep",
+    "phase": "Pre-Training",
+    "category": "lunch",
+    "description": "A simple three-ingredient cottage cheese naan dough, portioned for batch cooking.",
+    "servings": 8,
+    "mins": 0,
+    "kcal": 330,
+    "p": 16,
+    "c": 56,
+    "f": 3,
+    "ingredients": [
+      "550 g Self Rising Flour",
+      "620 g Blended Low Fat Cottage Cheese",
+      "2 Tbsp Salt",
+      "3 Tbsp Garlic Paste"
+    ],
+    "method": [
+      "In a large bowl, mix the self-rising flour, blended cottage cheese, salt, and garlic paste into a soft dough.",
+      "Knead briefly until smooth, adding a little extra flour if the dough is sticky.",
+      "Divide into 8 equal portions and roll each into a naan shape.",
+      "Cook each naan in a hot dry pan or skillet for 1-2 minutes per side until golden and puffed.",
+      "Stack and store for meal prep; reheat before serving."
+    ],
+    "note": "Source gave ingredients only, no method or serving size, so I've split this into 8 naan-sized portions and written a standard stovetop method - treat macros as a rough guide until you've tested a batch. Categorised as lunch as the closest fit since it's really a flatbread side."
+  },
+  {
+    "title": "One-Dish Protein Pancake Bowls",
+    "slug": "one-dish-protein-pancake-bowls",
+    "phase": "Post-Training",
+    "category": "breakfast",
+    "description": "All the flavour of pancakes, none of the standing-over-a-hot-pan flipping them one by one. Bake it in a dish, top it how you like, done.",
+    "servings": 4,
+    "mins": 30,
+    "kcal": 354,
+    "p": 42,
+    "c": 34,
+    "f": 7,
+    "ingredients": [
+      "200ml milk of choice",
+      "120g vanilla protein powder",
+      "4 eggs",
+      "280g vanilla protein yoghurt",
+      "10g baking powder",
+      "120g plain flour",
+      "2g sweetener (optional)",
+      "Raspberries, blueberries, strawberries, chocolate chips or biscoff, to top"
+    ],
+    "method": [
+      "Preheat the oven to 180°C.",
+      "To each dish, add 1 egg, 50ml milk and 70g protein yoghurt and mix until fully combined.",
+      "Add 30g protein powder, 1/2 tsp (2.5g) baking powder, 30g flour and optionally 1 tsp sweetener. Mix until fully combined.",
+      "Customise with your toppings of choice. If adding a sauce, wait until after baking.",
+      "Bake for 20 minutes at 180°C, or until a knife comes out clean.",
+      "Serve and enjoy. These store for up to 3 days in the fridge — reheat by partially removing the lid and microwaving for 60 seconds."
+    ],
+    "note": "This is a genuinely solid protein-per-calorie breakfast before macros from toppings — pick fruit over chocolate chips most days and you keep the ratio working in your favour."
+  },
+  {
+    "title": "Pollo al Sesamo (Sesame Chicken)",
+    "slug": "pollo-al-sesamo-sesame-chicken",
+    "phase": "Pre-Training",
+    "category": "dinner",
+    "description": "Crispy air-fried chicken thigh pieces tossed in a sticky sesame-soy glaze.",
+    "servings": 4,
+    "mins": 0,
+    "kcal": 400,
+    "p": 29,
+    "c": 41,
+    "f": 13,
+    "ingredients": [
+      "500g boneless chicken thighs, cut into bite-sized pieces",
+      "2 eggs",
+      "3 tbsp cornstarch (maicena)",
+      "1/2 tsp salt",
+      "4 tbsp ketchup",
+      "3 tbsp soy sauce",
+      "3 tbsp honey",
+      "2 tbsp brown sugar",
+      "2 tbsp rice vinegar",
+      "2 garlic cloves, minced",
+      "1 tbsp sesame oil",
+      "1 tsp cornstarch mixed with a splash of water, to thicken the sauce"
+    ],
+    "method": [
+      "Cut the chicken thighs into bite-sized pieces.",
+      "Add to a bowl with the eggs, cornstarch and salt.",
+      "Mix until the chicken is fully coated.",
+      "Air-fry or shallow-fry the chicken pieces until crispy and golden.",
+      "In another pan, add the ketchup, soy sauce, honey, brown sugar, rice vinegar, garlic and sesame oil.",
+      "Bring to a gentle simmer.",
+      "Mix the cornstarch with a splash of water and stir into the sauce to thicken.",
+      "Add the crispy chicken and toss until fully coated in the sauce."
+    ],
+    "note": "Crispy chicken thigh in a sticky honey-soy glaze is a proper way to make a high-protein dinner feel like a treat - serve it with rice or greens to round the plate out. Note: the source only gave total recipe macros (not ingredient quantities), so I have estimated reasonable quantities to match the stated ~400kcal / 29g protein per serving."
+  },
+  {
+    "title": "Protein Brownies",
+    "slug": "protein-brownies",
+    "phase": "Snack",
+    "category": "snack",
+    "description": "Fudgy, rich, and no protein-powder aftertaste. These hit the chocolate craving properly instead of pretending a rice cake will do the job.",
+    "servings": 16,
+    "mins": 40,
+    "kcal": 178,
+    "p": 7,
+    "c": 14,
+    "f": 12,
+    "ingredients": [
+      "256g creamy almond butter",
+      "2 large eggs",
+      "120ml pure maple syrup",
+      "60ml unsweetened almond milk",
+      "1 tsp vanilla extract",
+      "60g chocolate protein powder",
+      "20g cocoa powder",
+      "1/4 tsp sea salt (skip if almond butter is salted)",
+      "1 tsp baking powder",
+      "90g chocolate chips, plus extra for topping"
+    ],
+    "method": [
+      "Preheat the oven to 180°C. Grease an 20x20cm baking tin or line with parchment.",
+      "In a large bowl, whisk together the almond butter, eggs, maple syrup, almond milk and vanilla extract.",
+      "Add the protein powder, cocoa powder, sea salt and baking powder. Stir until combined — add a splash more milk if the batter is dry.",
+      "Gently fold in the chocolate chips.",
+      "Transfer to the tin and bake for 25-30 minutes, until set in the centre and a toothpick comes out mostly clean. Let cool completely before cutting into squares."
+    ],
+    "note": "Almond butter carries most of the fat and calories here, so treat this as a planned treat inside your flex bank, not a free-for-all — one square fits neatly, the tray doesn't."
+  },
+  {
+    "title": "Protein Chicken Wraps with Yoghurt Flatbreads",
+    "slug": "protein-chicken-wraps-yoghurt-flatbreads",
+    "phase": "Everyday",
+    "category": "lunch",
+    "description": "Marinated spiced chicken thighs wrapped in 2-ingredient yoghurt flatbreads with a garlic yoghurt spread and quick pickled onion salad.",
+    "servings": 4,
+    "mins": 35,
+    "kcal": 380,
+    "p": 40,
+    "c": 24,
+    "f": 13,
+    "ingredients": [
+      "Flatbreads: 2/3 cup gluten free all purpose flour (or regular flour)",
+      "2/3 cup Greek yoghurt",
+      "1/2 tsp baking powder",
+      "A couple generous pinches salt",
+      "Avocado oil spray",
+      "Sesame seeds (optional)",
+      "Chicken: 1.25 lb boneless skinless chicken thighs",
+      "1 tsp olive oil",
+      "1/2 tbsp sweet paprika",
+      "1/2 tbsp garlic powder",
+      "1/2 tbsp sumac",
+      "1/2 tbsp oregano",
+      "1/2 tsp turmeric",
+      "Juice of half a large lemon",
+      "2 tbsp tomato paste",
+      "Salt & pepper",
+      "Yoghurt spread: 1 cup Greek yoghurt",
+      "1 minced garlic clove",
+      "3-4 tbsp finely chopped parsley",
+      "Juice of 1 lemon",
+      "Pinch of salt & pepper",
+      "Onion salad: 1/2 red onion, thinly sliced",
+      "2 tbsp fresh parsley, finely chopped",
+      "Juice of 1/2 lemon",
+      "1/2 tbsp sumac",
+      "Pinch of salt"
+    ],
+    "method": [
+      "Add chicken to a bowl, drizzle with olive oil, add the spices, lemon and tomato paste and mix well. Marinate 4-6 hrs then cook in a pan on medium heat for ~4 mins per side with the lid on. Remove and let rest before slicing.",
+      "For the flatbreads, mix flour, yoghurt, baking powder and salt until a dough forms. Divide into 4 pieces. Lay parchment on a sheet pan, spray hands and parchment with oil, and press each portion into a flatbread. Spray tops lightly with oil, sprinkle sesame seeds, and bake at 375F for 15-20 mins. Let cool slightly, then cover loosely with parchment so they stay soft.",
+      "Make the yoghurt spread by mixing all ingredients together. Taste and adjust.",
+      "For the onion salad, combine all ingredients and let sit a few minutes to soften.",
+      "Assemble: spread yoghurt sauce, add tomato slices, sliced chicken, onion salad, and finish with extra sumac."
+    ],
+    "note": "A genuinely solid weekly-rotation meal — lean chicken thighs plus yoghurt flatbreads instead of shop-bought wraps pushes protein up without the usual carb-heavy bread. Good one to put in front of clients who say they're bored of chicken and rice."
+  },
+  {
+    "title": "Protein Steak Wraps with Yoghurt Flatbread",
+    "slug": "protein-steak-wraps-yoghurt-flatbread",
+    "phase": "Everyday",
+    "category": "dinner",
+    "description": "Restaurant-standard steak wrap, built at home. The yoghurt flatbread is the trick — soft, no yeast, no proving, and it quietly adds protein you'd otherwise miss.",
+    "servings": 4,
+    "mins": 45,
+    "kcal": 396,
+    "p": 42,
+    "c": 22,
+    "f": 14,
+    "ingredients": [
+      "85g gluten-free (or regular) plain flour",
+      "150g Greek yoghurt",
+      "1/2 tsp baking powder",
+      "A couple of generous pinches of salt",
+      "Olive oil and everything bagel seasoning, for topping (optional)",
+      "567g skirt steak",
+      "1 tsp olive oil",
+      "1/2 tbsp paprika",
+      "1/2 tbsp garlic powder",
+      "1/2 tbsp oregano",
+      "Salt and pepper",
+      "240g Greek yoghurt",
+      "1 garlic clove, minced",
+      "3-4 tbsp fresh dill, finely chopped",
+      "Juice of 1/2 lemon",
+      "Pinch of salt and pepper",
+      "1 small red onion, thinly sliced",
+      "4 tbsp fresh parsley, finely chopped",
+      "Juice of 1/2 lemon",
+      "1 tbsp sumac",
+      "Salt, to taste"
+    ],
+    "method": [
+      "Season the steak: drizzle with olive oil, add the spices, mix well, then air fry at 200°C for 10 minutes. Remove and rest before slicing.",
+      "For the flatbreads, mix the flour, yoghurt, baking powder and salt into a dough. Divide into 4 pieces, press out into thin flatbreads on oiled parchment, dimple with your fingers, brush with oil and sprinkle with everything bagel seasoning. Bake at 190°C for 18-20 minutes, then cover with a towel to keep soft.",
+      "Make the yoghurt spread by mixing the yoghurt, garlic, dill, lemon juice, salt and pepper.",
+      "Make the onion salad by combining the red onion, parsley, lemon juice, sumac and salt.",
+      "Assemble: spread the yoghurt sauce on the flatbread, add roasted red pepper slices, sliced steak, a handful of onion salad, and finish with extra parsley and sumac."
+    ],
+    "note": "Two protein sources doing double duty here — the steak for the bulk of it, the yoghurt (flatbread and spread) topping it up further. Good one for a dinner that still needs to hit a high daily target."
+  },
+  {
+    "title": "Red Lentil Chicken Pizza",
+    "slug": "red-lentil-chicken-pizza",
+    "phase": "Post-Training",
+    "category": "lunch",
+    "description": "A gluten-free pizza base made from red lentils instead of dough — more protein, more fibre, same satisfying bake-and-top format.",
+    "servings": 2,
+    "mins": 55,
+    "kcal": 392,
+    "p": 43,
+    "c": 35,
+    "f": 8,
+    "ingredients": [
+      "100g red lentils",
+      "150g cooked chicken breast, shredded",
+      "2 tbsp tomato sauce",
+      "60g low-fat shredded cheese",
+      "1/2 red onion, sliced",
+      "Paprika, salt and pepper, to taste"
+    ],
+    "method": [
+      "Soak the red lentils in water for about 30 minutes.",
+      "Blend the soaked lentils until smooth.",
+      "Pour the lentil mixture onto a sheet of parchment paper.",
+      "Bake the lentil base for about 10 minutes.",
+      "Flip the base once baked.",
+      "Top with tomato sauce, shredded chicken, red onion and grated cheese.",
+      "Bake for another 5 minutes.",
+      "Slice and serve."
+    ],
+    "note": "Lentils plus chicken breast gives you a complete protein base with fibre the standard flour crust doesn't offer — useful on a day you need to keep hunger down without adding more calories."
+  },
+  {
+    "title": "Savoury Egg Bites",
+    "slug": "savoury-egg-bites",
+    "phase": "Everyday",
+    "category": "breakfast",
+    "description": "Batch these once, eat breakfast sorted for the week. Bacon and cheese flavour, cottage cheese protein — no bowl of cereal required.",
+    "servings": 24,
+    "mins": 37,
+    "kcal": 81,
+    "p": 9,
+    "c": 1,
+    "f": 4,
+    "ingredients": [
+      "500g egg whites",
+      "10 eggs",
+      "500g cottage cheese",
+      "120g low-fat mozzarella",
+      "150g turkey bacon",
+      "Avocado oil spray"
+    ],
+    "method": [
+      "Cook the bacon, then chop.",
+      "Lightly grease muffin tins.",
+      "Blend the eggs, egg whites, cottage cheese and mozzarella until smooth.",
+      "Pour into the tins, leaving a little space at the top.",
+      "Add the bacon (or any fillings you like).",
+      "Bake at 180°C for 18-25 minutes, until set."
+    ],
+    "note": "This is a batch-and-forget breakfast — make 24 on a Sunday and you've got a grab-and-go protein hit every morning without thinking about it. Eat 3-4 for a proper anchor meal, not just one or two."
+  },
+  {
+    "title": "Your Edible Skincare",
+    "slug": "your-edible-skincare",
+    "phase": "Everyday",
+    "category": "lunch",
+    "description": "A colourful antioxidant-rich cabbage, beet and pomegranate salad with a honey-mustard dressing.",
+    "servings": 4,
+    "mins": 15,
+    "kcal": 244,
+    "p": 4,
+    "c": 21,
+    "f": 17,
+    "ingredients": [
+      "Purple cabbage, shredded",
+      "Carrot, shredded",
+      "Beets, diced",
+      "Pomegranate seeds",
+      "Bell pepper, diced",
+      "Red onion, finely diced",
+      "Parsley, chopped",
+      "Walnuts",
+      "Dressing: extra virgin olive oil",
+      "Dressing: lemon juice",
+      "Dressing: Dijon mustard",
+      "Dressing: honey",
+      "Dressing: salt",
+      "Dressing: black pepper"
+    ],
+    "method": [
+      "Shred the purple cabbage and carrot, and dice the beets, bell pepper, and red onion.",
+      "Add the pomegranate seeds, parsley, and walnuts to the bowl and toss to combine.",
+      "Whisk together the olive oil, lemon juice, Dijon mustard, honey, salt, and pepper for the dressing.",
+      "Pour the dressing over the salad, toss well, and serve."
+    ],
+    "note": "Source gave no quantities or method - macros are estimated from a standard salad build for 4 servings, so treat as a rough guide. Great colourful antioxidant hit; pair with a lean protein to make it a full meal."
+  }
+];
+// ── END RECIPES ─────────────────────────────────────────────────────────────
+
 // ── EXERCISE CARD WITH INLINE LOGGING ────────────────────────────────────────
 function ExerciseCard({
   ex,
@@ -2856,15 +4399,20 @@ function ExerciseCard({
     return rest && rest !== '—' && /*#__PURE__*/React.createElement("span", {
       className: `ex-rest-badge ${capped ? 'hyp' : ''}`
     }, "Rest: ", rest);
-  })(), ex.yt && /*#__PURE__*/React.createElement("a", {
-    href: ex.yt,
-    target: "_blank",
-    rel: "noopener",
-    className: "yt-btn",
-    onClick: e => e.stopPropagation()
-  }, "▶ Demo"), !ex.yt && needsVideo(ex.name) && /*#__PURE__*/React.createElement("span", {
-    className: "vid-pending"
-  }, "🎥 Video coming soon"))), /*#__PURE__*/React.createElement("div", {
+  })(), (() => {
+    const demo = ex.yt || videoFor(ex.name);
+    if (demo) return /*#__PURE__*/React.createElement("a", {
+      href: demo,
+      target: "_blank",
+      rel: "noopener",
+      className: "yt-btn",
+      onClick: e => e.stopPropagation()
+    }, "▶ Demo");
+    if (needsVideo(ex.name)) return /*#__PURE__*/React.createElement("span", {
+      className: "vid-pending"
+    }, "🎥 Video coming soon");
+    return null;
+  })())), /*#__PURE__*/React.createElement("div", {
     className: "ex-right"
   }, !isCardio && lastTopSet && lastTopSet.weight && /*#__PURE__*/React.createElement("span", {
     className: "ex-last-pill"
@@ -3238,6 +4786,60 @@ function DashboardTab({
 }
 
 // ── NUTRITION ─────────────────────────────────────────────────────────────────
+// Recipes are shared by both sports and grouped by when in the training day
+// they fit, which mirrors the Timing tab rather than breakfast/lunch/dinner.
+const RECIPE_PHASES = [{
+  id: 'Pre-Training',
+  label: 'Pre-Training & Match Day',
+  blurb: 'Carb-led, easy to digest — eat 2-3 hours out'
+}, {
+  id: 'Post-Training',
+  label: 'Post-Training Recovery',
+  blurb: 'Carbs plus protein, inside the hour after training'
+}, {
+  id: 'Snack',
+  label: 'Snacks & Top-Ups',
+  blurb: 'Between lessons, on the coach, in the kit bag'
+}, {
+  id: 'Everyday',
+  label: 'Everyday Meals',
+  blurb: 'The base of the week — cook once, eat twice'
+}];
+function RecipeCard({
+  r
+}) {
+  const [open, setOpen] = useState(false);
+  return /*#__PURE__*/React.createElement("div", {
+    className: "recipe-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "recipe-head",
+    onClick: () => setOpen(o => !o)
+  }, /*#__PURE__*/React.createElement("h4", null, r.title), r.description && /*#__PURE__*/React.createElement("div", {
+    className: "r-desc"
+  }, r.description), /*#__PURE__*/React.createElement("div", {
+    className: "r-macros"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "r-chip"
+  }, /*#__PURE__*/React.createElement("b", null, r.kcal), "kcal"), /*#__PURE__*/React.createElement("div", {
+    className: "r-chip"
+  }, /*#__PURE__*/React.createElement("b", null, r.c, "g"), "Carbs"), /*#__PURE__*/React.createElement("div", {
+    className: "r-chip"
+  }, /*#__PURE__*/React.createElement("b", null, r.p, "g"), "Protein"), /*#__PURE__*/React.createElement("div", {
+    className: "r-chip"
+  }, /*#__PURE__*/React.createElement("b", null, r.f, "g"), "Fat")), /*#__PURE__*/React.createElement("div", {
+    className: "r-meta"
+  }, r.mins ? /*#__PURE__*/React.createElement("span", null, r.mins, " min") : null, r.servings ? /*#__PURE__*/React.createElement("span", null, "Serves ", r.servings) : null, /*#__PURE__*/React.createElement("span", {
+    className: "r-open"
+  }, open ? 'Close −' : 'Recipe +'))), open && /*#__PURE__*/React.createElement("div", {
+    className: "recipe-body"
+  }, /*#__PURE__*/React.createElement("h5", null, "Ingredients"), /*#__PURE__*/React.createElement("ul", null, r.ingredients.map((i, n) => /*#__PURE__*/React.createElement("li", {
+    key: n
+  }, i))), /*#__PURE__*/React.createElement("h5", null, "Method"), /*#__PURE__*/React.createElement("ol", null, r.method.map((m, n) => /*#__PURE__*/React.createElement("li", {
+    key: n
+  }, m))), r.note && /*#__PURE__*/React.createElement("div", {
+    className: "coach-note"
+  }, /*#__PURE__*/React.createElement("strong", null, "Coach note"), r.note)));
+}
 function NutritionTab({
   sport
 }) {
@@ -3249,7 +4851,7 @@ function NutritionTab({
     className: "section-sub"
   }, N.sub), /*#__PURE__*/React.createElement("div", {
     className: "tab-row"
-  }, ['position', 'timing', 'foods'].map(t => /*#__PURE__*/React.createElement("button", {
+  }, ['position', 'timing', 'foods', 'recipes'].map(t => /*#__PURE__*/React.createElement("button", {
     key: t,
     className: `tab-btn ${tab === t ? 'active' : ''}`,
     onClick: () => setTab(t)
@@ -3301,7 +4903,24 @@ function NutritionTab({
     className: "food-card"
   }, /*#__PURE__*/React.createElement("h4", null, f.name, " ", /*#__PURE__*/React.createElement("span", {
     className: "star"
-  }, '★'.repeat(f.r))), /*#__PURE__*/React.createElement("p", null, f.desc))))));
+  }, '★'.repeat(f.r))), /*#__PURE__*/React.createElement("p", null, f.desc))))), tab === 'recipes' && /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("p", {
+    style: {
+      fontSize: '12px',
+      color: 'var(--grey)',
+      marginBottom: '4px'
+    }
+  }, "Grouped by when they fit in your training day, not by meal. ", RECIPES.length, " recipes."), RECIPE_PHASES.map(ph => {
+    const list = RECIPES.filter(r => r.phase === ph.id);
+    if (!list.length) return null;
+    return /*#__PURE__*/React.createElement("div", {
+      key: ph.id
+    }, /*#__PURE__*/React.createElement("div", {
+      className: "phase-head"
+    }, /*#__PURE__*/React.createElement("h3", null, ph.label), /*#__PURE__*/React.createElement("p", null, ph.blurb)), list.map(r => /*#__PURE__*/React.createElement(RecipeCard, {
+      key: r.slug,
+      r: r
+    })));
+  })));
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
