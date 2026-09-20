@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Solihull School Rugby Performance</title>
+<title>Solihull School Performance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -179,6 +179,24 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
   background:linear-gradient(180deg,var(--maroon-l),var(--maroon-d));color:var(--white);
   font-family:'Bebas Neue';font-size:20px;letter-spacing:.08em;transition:opacity .15s;}
 .login-btn:hover{opacity:.9;}
+.sport-prompt{text-align:center;font-family:'Barlow Condensed';font-size:12px;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--grey);margin:20px 0 12px;}
+.sport-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.sport-btn{background:var(--navy);border:1px solid var(--navy-l);border-radius:10px;padding:22px 10px;
+  cursor:pointer;color:var(--white);display:flex;flex-direction:column;align-items:center;gap:9px;
+  transition:all .2s;position:relative;overflow:hidden;}
+.sport-btn::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+.sport-btn.rugby::before{background:#8B2236;}
+.sport-btn.netball::before{background:#3E7CA6;}
+.sport-btn:hover{border-color:var(--gold);transform:translateY(-2px);}
+.sport-btn .sport-tag{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;
+  justify-content:center;font-family:'Bebas Neue';font-size:17px;letter-spacing:.05em;}
+.sport-btn.rugby .sport-tag{background:rgba(139,34,54,.3);color:#E8879A;}
+.sport-btn.netball .sport-tag{background:rgba(62,124,166,.3);color:#8FC4E3;}
+.sport-btn .sport-label{font-family:'Bebas Neue';font-size:21px;letter-spacing:.05em;}
+.sport-back{background:none;border:none;color:var(--grey);font-family:'Barlow Condensed';font-size:12px;
+  cursor:pointer;text-transform:uppercase;letter-spacing:.1em;padding:0;margin-bottom:10px;}
+.sport-back:hover{color:var(--gold);}
 .login-hint{text-align:center;font-family:'Barlow Condensed';font-size:11px;color:var(--grey);margin-top:14px;}
 
 /* HEADER USER CHIP */
@@ -196,10 +214,18 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 <form name="training-log" netlify netlify-honeypot="bot-field" hidden>
   <input type="text" name="student"/>
   <input type="text" name="squad"/>
+  <input type="text" name="sport"/>
   <input type="text" name="exercise"/>
   <input type="text" name="date"/>
   <input type="text" name="type"/>
   <input type="text" name="detail"/>
+</form>
+<!-- Sign-ins, so the coach dashboard lists every player who has opened the app. -->
+<form name="player-login" netlify netlify-honeypot="bot-field" hidden>
+  <input type="text" name="student"/>
+  <input type="text" name="squad"/>
+  <input type="text" name="sport"/>
+  <input type="text" name="date"/>
 </form>
 <div id="app"></div>
 <script>
@@ -558,6 +584,7 @@ function displayRest(ex) {
 const PROGRAMMES = {
   sizeStrength: {
     id: 'sizeStrength',
+    sport: 'rugby',
     name: 'Size & Strength',
     subtitle: 'Off-Season Mass Builder',
     color: '#8B2236',
@@ -965,6 +992,7 @@ const PROGRAMMES = {
   },
   strengthPower: {
     id: 'strengthPower',
+    sport: 'rugby',
     name: 'Strength & Power',
     subtitle: 'Pre-Season Transition',
     color: '#C9A84C',
@@ -1301,6 +1329,7 @@ const PROGRAMMES = {
   },
   power: {
     id: 'power',
+    sport: 'rugby',
     name: 'Power',
     subtitle: 'Pre-Season Explosive',
     color: '#E07B39',
@@ -1669,6 +1698,7 @@ const PROGRAMMES = {
   },
   conditioning: {
     id: 'conditioning',
+    sport: 'rugby',
     name: 'Conditioning',
     subtitle: 'All-Season Engine',
     color: '#2D6A4F',
@@ -2079,6 +2109,7 @@ const PROGRAMMES = {
   },
   netballConditioning: {
     id: 'netballConditioning',
+    sport: 'netball',
     name: 'Netball Conditioning',
     subtitle: 'Court Engine, Footwork & Landing',
     color: '#3E7CA6',
@@ -2600,6 +2631,143 @@ const FOODS = [{
   desc: '5g/day. Most evidence-based legal supplement. Safe for 15+. Tell your coach.'
 }];
 
+const NETBALL_POSITIONS = [{
+  pos: 'Centre (C)',
+  kcal: '2900-3300',
+  carbs: '6-7g/kg',
+  protein: '1.7g/kg',
+  fat: '1.1g/kg',
+  notes: 'Covers more ground than anyone on court — three thirds, every centre pass. The highest carb need in the team.'
+}, {
+  pos: 'Wing Attack (WA)',
+  kcal: '2700-3100',
+  carbs: '5-7g/kg',
+  protein: '1.7g/kg',
+  fat: '1.1g/kg',
+  notes: 'Relentless repeat leads feeding the circle. Fuel the second half properly or the leads get slower.'
+}, {
+  pos: 'Wing Defence (WD)',
+  kcal: '2700-3100',
+  carbs: '5-7g/kg',
+  protein: '1.7g/kg',
+  fat: '1.1g/kg',
+  notes: 'Chase, shadow and turn over. High running volume with constant changes of direction.'
+}, {
+  pos: 'Goal Attack (GA)',
+  kcal: '2600-3000',
+  carbs: '5-6g/kg',
+  protein: '1.7g/kg',
+  fat: '1.1g/kg',
+  notes: 'Circle edge work plus shooting under fatigue. Blood sugar dips show up in the shooting percentage.'
+}, {
+  pos: 'Goal Shooter (GS)',
+  kcal: '2400-2800',
+  carbs: '4-6g/kg',
+  protein: '1.8g/kg',
+  fat: '1.2g/kg',
+  notes: 'Less ground covered, more holding and boxing out. Protein and strength work matter more than sheer carb volume.'
+}, {
+  pos: 'Goal Defence (GD)',
+  kcal: '2600-3000',
+  carbs: '5-6g/kg',
+  protein: '1.8g/kg',
+  fat: '1.1g/kg',
+  notes: 'Repeat jumping and contesting. Landing loads are highest here — bone and tendon need consistent fuel.'
+}, {
+  pos: 'Goal Keeper (GK)',
+  kcal: '2400-2800',
+  carbs: '4-6g/kg',
+  protein: '1.8g/kg',
+  fat: '1.2g/kg',
+  notes: 'Jump, contest, rebound. Strength and recovery focus, with carbs timed around training rather than spread thin.'
+}];
+const NETBALL_TIMING = [{
+  phase: 'Pre-Training (2-3 hrs)',
+  items: ['Proper meal: pasta/rice/potato + protein + veg', 'Keep fat and fibre lower than normal — they slow digestion', '500ml water with the meal', 'Do not train on an empty stomach because a session "is only an hour"']
+}, {
+  phase: '60 Min Before',
+  items: ['Light carb: banana, toast and jam, rice cakes, cereal bar', 'Avoid heavy protein or fat this close in', '300ml water or diluted squash']
+}, {
+  phase: 'During (60+ min sessions)',
+  items: ['200ml water every 20 min — court sessions indoors dehydrate faster than players expect', '20-30g carbs if the session runs past an hour', 'Electrolytes in a hot hall or a double session']
+}, {
+  phase: 'Post-Training (30-60 min window)',
+  items: ['Carbs plus 20-25g protein — this is when the landing and jumping work gets repaid', 'Chocolate milk is cheap, proven and easy to carry', 'Rehydrate 150% of what you sweated out', 'Calcium-rich choice here supports bone under repeated landing load']
+}, {
+  phase: 'Match Day (4 x 15 min quarters)',
+  items: ['Carb-rich evening meal the night before', 'Breakfast 3 hrs out: porridge, toast, eggs', 'Top up 60 min before: banana or cereal bar', 'Quarter breaks are short — sip water, take a few sweets or a gel at half time', 'Netball is 60 minutes of near-continuous stop-start work. It burns more than it looks like it does.']
+}, {
+  phase: 'Tournament / Back-to-Back Fixtures',
+  items: ['Pack food, do not rely on the venue', 'Between games: carbs plus fluid within 20 min of the whistle', 'Bagels, malt loaf, bananas, cereal bars, chocolate milk, jelly sweets', 'A proper meal after the last game, not just a packet of crisps on the coach home']
+}];
+const NETBALL_FOODS = [{
+  name: 'Oats',
+  r: 5,
+  desc: 'Slow-release carbs. Best pre-training breakfast there is. Cheap and proven.'
+}, {
+  name: 'Red Meat (2-3x/week)',
+  r: 5,
+  desc: 'The single best iron source. Iron is the number one deficiency in teenage female athletes and it flattens your engine before you notice it.'
+}, {
+  name: 'Chicken / Turkey',
+  r: 5,
+  desc: 'Lean protein for repair after landing and jumping volume.'
+}, {
+  name: 'Dairy or Fortified Alternatives',
+  r: 5,
+  desc: 'Calcium plus protein. Netball is a jumping and landing sport — bone density built now protects you for the whole career.'
+}, {
+  name: 'Chocolate Milk',
+  r: 5,
+  desc: 'Carbs, protein and calcium in one bottle. The most practical recovery drink for a school kit bag.'
+}, {
+  name: 'Eggs',
+  r: 5,
+  desc: 'Complete protein, iron, vitamin D. Versatile and quick.'
+}, {
+  name: 'Leafy Greens + Vitamin C',
+  r: 4,
+  desc: 'Spinach or kale WITH orange juice, peppers or tomatoes. Vitamin C roughly doubles how much plant iron you absorb — never eat them apart.'
+}, {
+  name: 'Oily Fish',
+  r: 4,
+  desc: 'Omega-3 and vitamin D. Supports recovery and bone.'
+}, {
+  name: 'Rice / Pasta / Potatoes',
+  r: 5,
+  desc: 'Your actual fuel. Most school netballers under-eat carbs and then wonder why the fourth quarter falls apart.'
+}, {
+  name: 'Greek Yoghurt',
+  r: 4,
+  desc: 'Casein protein and calcium. Good before bed for overnight recovery.'
+}, {
+  name: 'Bananas',
+  r: 4,
+  desc: 'Fast carbs and potassium. Pre-match and quarter-break staple.'
+}, {
+  name: 'Iron — Get Tested First',
+  r: 5,
+  desc: 'If you are constantly flat, breathless in warm-ups or your times have stalled, ask your GP for a ferritin blood test. Do not self-prescribe iron tablets — tell your coach and your parents first.'
+}];
+const NUTRITION = {
+  rugby: {
+    positions: POSITIONS,
+    timing: TIMING,
+    foods: FOODS,
+    sub: 'Fuel for rugby performance',
+    posBlurb: 'Research from ISSN and World Rugby shows 90%+ of rugby players under-fuel on carbs. Targets for 75-85kg players — adjust by bodyweight.',
+    foodBlurb: 'Rated by evidence, not trends.'
+  },
+  netball: {
+    positions: NETBALL_POSITIONS,
+    timing: NETBALL_TIMING,
+    foods: NETBALL_FOODS,
+    sub: 'Fuel for netball performance',
+    posBlurb: 'Targets for a 60-70kg athlete — scale by your own bodyweight. The most common mistake in school netball is under-eating, not over-eating: too little fuel costs you the fourth quarter, your periods, and in the long run your bone density. Eat for the work you do.',
+    foodBlurb: 'Rated by evidence, not trends. Iron and calcium are weighted heavily here for a reason.'
+  }
+};
+
 // ── EXERCISE CARD WITH INLINE LOGGING ────────────────────────────────────────
 function ExerciseCard({
   ex,
@@ -2870,7 +3038,8 @@ function ProgrammeDetail({
 }
 function TrainingTab({
   logs,
-  onLog
+  onLog,
+  sport
 }) {
   const [selected, setSelected] = useState(null);
   if (selected) return /*#__PURE__*/React.createElement(ProgrammeDetail, {
@@ -2885,7 +3054,7 @@ function TrainingTab({
     className: "section-sub"
   }, "Select a programme to begin"), /*#__PURE__*/React.createElement("div", {
     className: "prog-grid"
-  }, Object.values(PROGRAMMES).map(p => /*#__PURE__*/React.createElement("div", {
+  }, Object.values(PROGRAMMES).filter(p => p.sport === sport).map(p => /*#__PURE__*/React.createElement("div", {
     key: p.id,
     className: `prog-card ${p.id}`,
     onClick: () => setSelected(p)
@@ -3069,13 +3238,16 @@ function DashboardTab({
 }
 
 // ── NUTRITION ─────────────────────────────────────────────────────────────────
-function NutritionTab() {
+function NutritionTab({
+  sport
+}) {
+  const N = NUTRITION[sport] || NUTRITION.rugby;
   const [tab, setTab] = useState('position');
   return /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement("h2", {
     className: "section-title"
   }, "Nutrition"), /*#__PURE__*/React.createElement("p", {
     className: "section-sub"
-  }, "Fuel for rugby performance"), /*#__PURE__*/React.createElement("div", {
+  }, N.sub), /*#__PURE__*/React.createElement("div", {
     className: "tab-row"
   }, ['position', 'timing', 'foods'].map(t => /*#__PURE__*/React.createElement("button", {
     key: t,
@@ -3087,7 +3259,7 @@ function NutritionTab() {
       color: 'var(--grey)',
       marginBottom: '14px'
     }
-  }, "Research from ISSN and World Rugby shows 90%+ of rugby players under-fuel on carbs. Targets for 75-85kg players — adjust by bodyweight."), POSITIONS.map((p, i) => /*#__PURE__*/React.createElement("div", {
+  }, N.posBlurb), N.positions.map((p, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: "pos-card"
   }, /*#__PURE__*/React.createElement("h4", null, p.pos), /*#__PURE__*/React.createElement("p", {
@@ -3111,7 +3283,7 @@ function NutritionTab() {
       color: 'var(--grey)',
       marginBottom: '14px'
     }
-  }, "When you eat matters as much as what you eat."), TIMING.map((t, i) => /*#__PURE__*/React.createElement("div", {
+  }, "When you eat matters as much as what you eat."), N.timing.map((t, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: "timing-card"
   }, /*#__PURE__*/React.createElement("h4", null, t.phase), /*#__PURE__*/React.createElement("ul", null, t.items.map((item, j) => /*#__PURE__*/React.createElement("li", {
@@ -3122,9 +3294,9 @@ function NutritionTab() {
       color: 'var(--grey)',
       marginBottom: '14px'
     }
-  }, "Rated by evidence, not trends."), /*#__PURE__*/React.createElement("div", {
+  }, N.foodBlurb), /*#__PURE__*/React.createElement("div", {
     className: "food-grid"
-  }, FOODS.map((f, i) => /*#__PURE__*/React.createElement("div", {
+  }, N.foods.map((f, i) => /*#__PURE__*/React.createElement("div", {
     key: i,
     className: "food-card"
   }, /*#__PURE__*/React.createElement("h4", null, f.name, " ", /*#__PURE__*/React.createElement("span", {
@@ -3133,19 +3305,75 @@ function NutritionTab() {
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
-const SQUADS = ['1st XV', '2nd XV', 'U18A', 'U18B', 'U16A', 'U16B', 'U15', 'U14', 'Development', 'Netball 1st VII', 'Netball 2nd VII', 'Netball U18', 'Netball U16', 'Netball U15', 'Netball U14'];
+const SPORTS = {
+  rugby: {
+    id: 'rugby',
+    label: 'Rugby',
+    tag: 'XV',
+    sub: 'Rugby Performance Programme'
+  },
+  netball: {
+    id: 'netball',
+    label: 'Netball',
+    tag: 'VII',
+    sub: 'Netball Performance Programme'
+  }
+};
+const SQUADS = {
+  rugby: ['1st XV', '2nd XV', 'U18A', 'U18B', 'U16A', 'U16B', 'U15', 'U14', 'Development'],
+  netball: ['1st VII', '2nd VII', 'U18A', 'U18B', 'U16A', 'U16B', 'U15', 'U14', 'Development']
+};
+// Users saved before sport selection existed default to rugby (netball squads
+// from the first netball release were prefixed 'Netball ').
+function resolveSport(u) {
+  if (!u) return 'rugby';
+  if (u.sport && SPORTS[u.sport]) return u.sport;
+  return String(u.squad || '').startsWith('Netball') ? 'netball' : 'rugby';
+}
 function LoginScreen({
   onLogin
 }) {
+  const [sport, setSport] = React.useState(null);
   const [name, setName] = React.useState('');
-  const [squad, setSquad] = React.useState(SQUADS[0]);
+  const [squad, setSquad] = React.useState('');
+  const chooseSport = id => {
+    setSport(id);
+    setSquad(SQUADS[id][0]);
+  };
+  // Step 1 — sport. Nothing else is shown until this is answered.
+  if (!sport) return /*#__PURE__*/React.createElement("div", {
+    className: "login-screen"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "login-card"
+  }, /*#__PURE__*/React.createElement("div", {
+    className: "school-badge"
+  }, "S"), /*#__PURE__*/React.createElement("h2", null, "SOLIHULL SCHOOL"), /*#__PURE__*/React.createElement("p", {
+    className: "login-sub"
+  }, "Strength & Conditioning"), /*#__PURE__*/React.createElement("p", {
+    className: "sport-prompt"
+  }, "Choose your sport"), /*#__PURE__*/React.createElement("div", {
+    className: "sport-row"
+  }, Object.values(SPORTS).map(sp => /*#__PURE__*/React.createElement("button", {
+    key: sp.id,
+    type: "button",
+    className: `sport-btn ${sp.id}`,
+    onClick: () => chooseSport(sp.id)
+  }, /*#__PURE__*/React.createElement("span", {
+    className: "sport-tag"
+  }, sp.tag), /*#__PURE__*/React.createElement("span", {
+    className: "sport-label"
+  }, sp.label)))), /*#__PURE__*/React.createElement("p", {
+    className: "login-hint"
+  }, "You will only see the programmes and nutrition for your sport.")));
+  // Step 2 — name and squad, filtered to the chosen sport.
   const submit = e => {
     e.preventDefault();
     const n = name.trim();
     if (!n) return;
     onLogin({
       name: n,
-      squad
+      squad,
+      sport
     });
   };
   return /*#__PURE__*/React.createElement("div", {
@@ -3154,11 +3382,15 @@ function LoginScreen({
     className: "login-card",
     onSubmit: submit,
     autoComplete: "on"
-  }, /*#__PURE__*/React.createElement("div", {
+  }, /*#__PURE__*/React.createElement("button", {
+    type: "button",
+    className: "sport-back",
+    onClick: () => setSport(null)
+  }, "← Change sport"), /*#__PURE__*/React.createElement("div", {
     className: "school-badge"
   }, "S"), /*#__PURE__*/React.createElement("h2", null, "SOLIHULL SCHOOL"), /*#__PURE__*/React.createElement("p", {
     className: "login-sub"
-  }, "Rugby Performance Programme"), /*#__PURE__*/React.createElement("div", {
+  }, SPORTS[sport].sub), /*#__PURE__*/React.createElement("div", {
     className: "login-field"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "login-name"
@@ -3166,7 +3398,7 @@ function LoginScreen({
     id: "login-name",
     name: "name",
     type: "text",
-    placeholder: "e.g. Tom Harper",
+    placeholder: sport === 'netball' ? 'e.g. Ella Harper' : 'e.g. Tom Harper',
     value: name,
     onChange: e => setName(e.target.value),
     autoComplete: "given-name",
@@ -3175,14 +3407,14 @@ function LoginScreen({
     className: "login-field"
   }, /*#__PURE__*/React.createElement("label", {
     htmlFor: "login-squad"
-  }, "Squad"), /*#__PURE__*/React.createElement("select", {
+  }, SPORTS[sport].label, " squad"), /*#__PURE__*/React.createElement("select", {
     id: "login-squad",
     name: "squad",
     value: squad,
     onChange: e => setSquad(e.target.value)
-  }, SQUADS.map(s => /*#__PURE__*/React.createElement("option", {
-    key: s
-  }, s)))), /*#__PURE__*/React.createElement("button", {
+  }, SQUADS[sport].map(sq => /*#__PURE__*/React.createElement("option", {
+    key: sq
+  }, sq)))), /*#__PURE__*/React.createElement("button", {
     className: "login-btn",
     type: "submit"
   }, "Start Training →"), /*#__PURE__*/React.createElement("p", {
@@ -3195,7 +3427,30 @@ function App() {
   const [tab, setTab] = useState('training');
   const [user, setUser] = useLocalStorage('solihull-user-v1', null);
   const [logs, setLogs] = useLocalStorage('solihull-logs-v2', {});
-  const handleLogin = useCallback(u => setUser(u), [setUser]);
+  const sport = resolveSport(user);
+  // Record the sign-in itself so coaches see every registered player, not just
+  // the ones who have already saved a set. Best-effort, same pattern as logs.
+  const handleLogin = useCallback(u => {
+    setUser(u);
+    const body = new URLSearchParams({
+      'form-name': 'player-login',
+      student: u.name || '',
+      squad: u.squad || '',
+      sport: u.sport || '',
+      date: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: '2-digit'
+      })
+    });
+    fetch('/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: body.toString()
+    }).catch(() => {});
+  }, [setUser]);
   const handleSignOut = useCallback(() => {
     if (window.confirm('Sign out? Your progress stays saved on this device.')) setUser(null);
   }, [setUser]);
@@ -3223,6 +3478,7 @@ function App() {
         'form-name': 'training-log',
         student: user.name || '',
         squad: user.squad || '',
+        sport: resolveSport(user),
         exercise: entry.exercise,
         date: entry.date,
         type: entry.cardio ? 'cardio' : 'strength',
@@ -3244,11 +3500,11 @@ function App() {
     className: "header"
   }, /*#__PURE__*/React.createElement("div", {
     className: "school-badge"
-  }, "S"), /*#__PURE__*/React.createElement("h1", null, "SOLIHULL SCHOOL"), /*#__PURE__*/React.createElement("p", null, "Rugby Performance Programme"), /*#__PURE__*/React.createElement("div", {
+  }, "S"), /*#__PURE__*/React.createElement("h1", null, "SOLIHULL SCHOOL"), /*#__PURE__*/React.createElement("p", null, SPORTS[sport].sub), /*#__PURE__*/React.createElement("div", {
     className: "header-user"
   }, /*#__PURE__*/React.createElement("span", {
     className: "user-chip"
-  }, "👤 ", user.name, " · ", user.squad), /*#__PURE__*/React.createElement("button", {
+  }, "👤 ", user.name, " · ", SPORTS[sport].label, " ", user.squad), /*#__PURE__*/React.createElement("button", {
     className: "signout-btn",
     onClick: handleSignOut
   }, "Sign out"))), /*#__PURE__*/React.createElement("nav", {
@@ -3270,10 +3526,13 @@ function App() {
     className: "content"
   }, tab === 'training' && /*#__PURE__*/React.createElement(TrainingTab, {
     logs: logs,
-    onLog: handleLog
+    onLog: handleLog,
+    sport: sport
   }), tab === 'dashboard' && /*#__PURE__*/React.createElement(DashboardTab, {
     logs: logs
-  }), tab === 'nutrition' && /*#__PURE__*/React.createElement(NutritionTab, null)));
+  }), tab === 'nutrition' && /*#__PURE__*/React.createElement(NutritionTab, {
+    sport: sport
+  })));
 }
 ReactDOM.createRoot(document.getElementById('app')).render(/*#__PURE__*/React.createElement(App, null));
 </script>

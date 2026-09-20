@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-<title>Solihull School Rugby — Coach Dashboard</title>
+<title>Solihull School — Coach Dashboard</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet"/>
 <style>
@@ -61,6 +61,15 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
   border-radius:6px;cursor:pointer;font-family:'Barlow Condensed';font-size:13px;font-weight:600;
   text-transform:uppercase;transition:all .15s;}
 .sq-btn.active{background:var(--maroon);color:var(--white);border-color:var(--maroon-l);}
+.sport-tabs{padding:0 16px 10px;max-width:900px;margin:0 auto;display:flex;gap:8px;flex-wrap:wrap;}
+.sport-tabs .sq-btn.active.rugby{background:#8B2236;border-color:#8B2236;color:#fff;}
+.sport-tabs .sq-btn.active.netball{background:#3E7CA6;border-color:#3E7CA6;color:#fff;}
+.s-sport{display:inline-block;margin:4px 0 0 6px;border-radius:4px;padding:2px 7px;
+  font-family:'Barlow Condensed';font-size:11px;letter-spacing:.08em;text-transform:uppercase;}
+.s-sport.rugby{background:rgba(139,34,54,.25);color:#E8879A;}
+.s-sport.netball{background:rgba(62,124,166,.25);color:#8FC4E3;}
+.tag-new{background:rgba(201,168,76,.15);color:var(--gold);border:1px solid rgba(201,168,76,.35);
+  border-radius:4px;padding:1px 6px;font-family:'Barlow Condensed';font-size:11px;margin-left:6px;}
 
 /* GRID */
 .grid{padding:0 16px 40px;max-width:900px;margin:0 auto;display:grid;
@@ -109,7 +118,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
   <div class="login-card">
     <div class="badge">S</div>
     <h2>COACH DASHBOARD</h2>
-    <p class="sub">Solihull School Rugby</p>
+    <p class="sub">Solihull School · Rugby &amp; Netball</p>
     <div class="field">
       <label for="pw">Coach password</label>
       <input id="pw" type="password" placeholder="Enter password" autocomplete="current-password"/>
@@ -125,7 +134,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
     <div class="badge">S</div>
     <div>
       <h1>COACH DASHBOARD</h1>
-      <div class="sub2">Solihull School Rugby · S&amp;C</div>
+      <div class="sub2">Solihull School · Rugby &amp; Netball S&amp;C</div>
     </div>
     <div class="actions">
       <button class="btn-sm" id="refreshBtn">↻ Refresh</button>
@@ -140,6 +149,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
     <div class="stat-card"><div class="big" id="statSets">—</div><div class="lbl">Sets logged</div></div>
   </div>
 
+  <div class="sport-tabs" id="sportTabs"></div>
   <div class="squads" id="squadTabs"></div>
   <div class="grid" id="studentGrid"></div>
   <div class="last-updated" id="lastUpdated"></div>
@@ -150,6 +160,7 @@ const KEY_LIFTS = ['Back Squat','Bench Press','Deadlift','Overhead Press','Roman
 let password = '';
 let allStudents = [];
 let activeSquad = 'All';
+let activeSport = 'All';
 let openCard = null;
 
 // ── AUTH ──────────────────────────────────────────────────────────────
@@ -219,8 +230,16 @@ function showDash() {
   renderAll();
 }
 
+// Everything below the sport row is scoped to the selected sport.
+function sportFiltered() {
+  return activeSport === 'All'
+    ? allStudents
+    : allStudents.filter(s => (s.student.sport || 'rugby') === activeSport);
+}
+
 function renderAll() {
   renderStats();
+  renderSportTabs();
   renderSquadTabs();
   renderGrid();
   document.getElementById('lastUpdated').textContent = 'Last loaded: ' + new Date().toLocaleTimeString('en-GB');
@@ -232,23 +251,52 @@ function renderStats() {
   const weekAgo = now - 7 * 24 * 60 * 60 * 1000;
   let totalSessions = 0, totalSets = 0, activeCount = 0;
 
-  allStudents.forEach(s => {
-    const lastSeen = s.lastSeen ? new Date(s.lastSeen).getTime() : 0;
+  const inScope = sportFiltered();
+  inScope.forEach(s => {
+    const lastSeen = Math.max(
+      s.lastSeen  ? new Date(s.lastSeen).getTime()  : 0,
+      s.lastLogin ? new Date(s.lastLogin).getTime() : 0
+    );
     if (lastSeen > weekAgo) activeCount++;
     const { sessions, sets } = getStudentStats(s);
     totalSessions += sessions;
     totalSets += sets;
   });
 
-  document.getElementById('statStudents').textContent = allStudents.length;
+  document.getElementById('statStudents').textContent = inScope.length;
   document.getElementById('statActive').textContent = activeCount;
   document.getElementById('statSessions').textContent = totalSessions;
   document.getElementById('statSets').textContent = totalSets;
 }
 
+// ── SPORT TABS ────────────────────────────────────────────────────────
+function renderSportTabs() {
+  const sports = [
+    { id: 'All',     label: 'All sports' },
+    { id: 'rugby',   label: 'Rugby'   },
+    { id: 'netball', label: 'Netball' },
+  ];
+  const wrap = document.getElementById('sportTabs');
+  wrap.innerHTML = sports.map(sp => {
+    const count = sp.id === 'All'
+      ? allStudents.length
+      : allStudents.filter(s => (s.student.sport || 'rugby') === sp.id).length;
+    const cls = `sq-btn ${sp.id}${sp.id === activeSport ? ' active' : ''}`;
+    return `<button class="${cls}" data-sp="${sp.id}">${sp.label} (${count})</button>`;
+  }).join('');
+  wrap.querySelectorAll('.sq-btn').forEach(b => b.addEventListener('click', () => {
+    activeSport = b.dataset.sp;
+    activeSquad = 'All'; // squads differ per sport
+    renderStats();
+    renderSportTabs();
+    renderSquadTabs();
+    renderGrid();
+  }));
+}
+
 // ── SQUAD TABS ────────────────────────────────────────────────────────
 function renderSquadTabs() {
-  const squads = ['All', ...new Set(allStudents.map(s => s.student.squad))].filter(Boolean);
+  const squads = ['All', ...new Set(sportFiltered().map(s => s.student.squad))].filter(Boolean);
   const wrap = document.getElementById('squadTabs');
   wrap.innerHTML = squads.map(sq =>
     `<button class="sq-btn${sq===activeSquad?' active':''}" data-sq="${sq}">${sq}</button>`
@@ -262,13 +310,14 @@ function renderSquadTabs() {
 
 // ── STUDENT GRID ──────────────────────────────────────────────────────
 function renderGrid() {
+  const inScope = sportFiltered();
   const filtered = activeSquad === 'All'
-    ? allStudents
-    : allStudents.filter(s => s.student.squad === activeSquad);
+    ? inScope
+    : inScope.filter(s => s.student.squad === activeSquad);
 
   const grid = document.getElementById('studentGrid');
   if (filtered.length === 0) {
-    grid.innerHTML = '<div class="empty">No students logged yet for this squad.</div>';
+    grid.innerHTML = '<div class="empty">No players here yet.</div>';
     return;
   }
 
@@ -285,11 +334,17 @@ function renderGrid() {
 function renderCard(s, i) {
   const { sessions, sets } = getStudentStats(s);
   const prs = getKeyPRs(s);
-  const lastSeen = s.lastSeen ? new Date(s.lastSeen) : null;
-  const daysAgo = lastSeen ? Math.floor((Date.now() - lastSeen.getTime()) / 86400000) : null;
+  const lastSeen  = s.lastSeen  ? new Date(s.lastSeen)  : null;
+  const lastLogin = s.lastLogin ? new Date(s.lastLogin) : null;
+  const recent = Math.max(lastSeen ? lastSeen.getTime() : 0, lastLogin ? lastLogin.getTime() : 0);
+  const daysAgo = recent ? Math.floor((Date.now() - recent) / 86400000) : null;
   const activeTag = daysAgo !== null && daysAgo <= 7
     ? `<span class="tag-active">Active</span>`
     : (daysAgo !== null ? `<span class="tag-inactive">${daysAgo}d ago</span>` : '');
+  // Signed in but never saved a set — the players to chase.
+  const newTag = sessions === 0 ? `<span class="tag-new">Not started</span>` : '';
+  const sport = s.student.sport || 'rugby';
+  const sportLabel = sport === 'netball' ? 'Netball' : 'Rugby';
 
   const prHtml = prs.map(p =>
     `<div class="lift-chip"><span class="lv">${p.weight}kg</span><span class="ln">${p.name.replace('Core: ','')}</span></div>`
@@ -299,12 +354,14 @@ function renderCard(s, i) {
 
   return `<div class="s-card" id="card-${i}">
     <div class="s-top">
-      <div class="s-name">${escHtml(s.student.name)}${activeTag}</div>
-      <span class="s-squad">${escHtml(s.student.squad)}</span>
+      <div class="s-name">${escHtml(s.student.name)}${activeTag}${newTag}</div>
+      <span class="s-squad">${escHtml(s.student.squad)}</span><span class="s-sport ${sport}">${sportLabel}</span>
       <div class="s-meta">
         <span><b>${sessions}</b> sessions</span>
         <span><b>${sets}</b> sets</span>
-        ${lastSeen ? `<span>Last: <b>${formatDate(lastSeen)}</b></span>` : ''}
+        ${lastSeen ? `<span>Last trained: <b>${formatDate(lastSeen)}</b></span>` : ''}
+        ${s.loginCount ? `<span><b>${s.loginCount}</b> sign-ins</span>` : ''}
+        ${lastLogin ? `<span>Last sign-in: <b>${formatDate(lastLogin)}</b></span>` : ''}
       </div>
       ${prHtml ? `<div class="s-lifts">${prHtml}</div>` : ''}
     </div>
@@ -314,7 +371,10 @@ function renderCard(s, i) {
 
 function renderDetail(s) {
   const exercises = Object.entries(s.logs || {});
-  if (exercises.length === 0) return '<p style="color:var(--grey);font-size:13px">No exercises logged yet.</p>';
+  if (exercises.length === 0) {
+    const first = s.firstLogin ? formatDate(new Date(s.firstLogin)) : null;
+    return `<p style="color:var(--grey);font-size:13px">Signed in${first ? ` since ${first}` : ''} but has not logged a session yet.</p>`;
+  }
 
   return exercises.map(([name, entries]) => {
     const chips = entries.map(e => {
