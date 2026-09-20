@@ -37,7 +37,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 @media(max-width:500px){.prog-grid{grid-template-columns:1fr;}}
 .prog-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
 .prog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
-.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}.prog-card.netballConditioning::before{background:#3E7CA6;}.prog-card.netballStrength::before{background:#6E5AA6;}
+.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}.prog-card.netballConditioning::before{background:#3E7CA6;}.prog-card.netballStrength::before{background:#6E5AA6;}.prog-card.netballPower::before{background:#2F9E8F;}
 .prog-card:hover{border-color:var(--gold);transform:translateY(-2px);}
 .prog-card h3{font-size:20px;margin-bottom:3px;}
 .prog-card p{font-size:12px;color:var(--grey);font-family:'Barlow Condensed';text-transform:uppercase;}
@@ -2494,6 +2494,331 @@ const PROGRAMMES = {
           reps: '15 each',
           rest: '45s',
           cue: 'Ankle maintenance. Ten minutes that keeps you on court.'
+        }]
+      }]
+    }]
+  },
+  netballPower: {
+    id: 'netballPower',
+    sport: 'netball',
+    name: 'Netball Power',
+    subtitle: 'Jump, Lead & Contest',
+    color: '#2F9E8F',
+    badge: 'Netball',
+    info: {
+      sessions: '3 / week',
+      duration: '60 min',
+      focus: 'Vertical jump, first-step acceleration, lateral power, PAP contrast'
+    },
+    blocks: [{
+      name: 'Block 1',
+      subtitle: 'Reactive Foundations — Weeks 1-4',
+      warmup: '10 min: skip and shuffle → 2 rounds: pogo jumps x20, lateral bounds x5 each, ankle rocks x10, hip openers, 2 x 15m build-ups',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Lower Body Plyometrics',
+        pap: 'No heavy loading this block — earn the landings before you add weight.',
+        exercises: [{
+          name: 'Countermovement Jump (CMJ)',
+          sets: '5',
+          reps: '3',
+          rest: '90s',
+          cue: 'Max height, arms free, reset fully between reps. Record your best — this is the number the whole block is chasing.'
+        }, {
+          name: 'Box Jump',
+          sets: '4',
+          reps: '5',
+          rest: '90s',
+          cue: 'Jump up, STEP down every time. Land quiet and balanced in the middle of the box.'
+        }, {
+          name: 'Lateral Bound',
+          sets: '4',
+          reps: '4 each',
+          rest: '90s',
+          cue: 'Push off the outside leg, stick the landing for a full second. This is the defensive push-off and the first step of a lead.'
+        }, {
+          name: 'Pogo Jumps',
+          sets: '3',
+          reps: '20',
+          rest: '60s',
+          cue: 'Straight legs, ankles doing the work, minimum ground contact. Think of the floor as hot.'
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Ribs down, no hip twist. Trunk stiffness is what lets the power transfer.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Upper Body Ballistics',
+        pap: 'Transfer of force — legs through the trunk into the hands. The arms finish it, they do not start it.',
+        exercises: [{
+          name: 'Med Ball Chest Pass',
+          sets: '5',
+          reps: '5',
+          rest: '90s',
+          cue: 'Max intent into a wall. Drive from the legs, brace the trunk, punch through. This is a netball pass with the brakes off.'
+        }, {
+          name: 'Med Ball Overhead Slam',
+          sets: '4',
+          reps: '6',
+          rest: '75s',
+          cue: 'Full overhead reach, slam hard. Reset your stance every rep.'
+        }, {
+          name: 'Push Press',
+          sets: '4',
+          reps: '5',
+          rest: '2 min',
+          cue: 'Dip, drive, punch. Light enough to move fast — this is a power lift today, not a strength lift.'
+        }, {
+          name: 'Pull-Up (weighted)',
+          sets: '3',
+          reps: '5',
+          rest: '2 min',
+          cue: 'Explosive up, controlled down. Assisted is fine, just log it.'
+        }, {
+          name: 'Core: Rotational Med Ball Slam',
+          sets: '3',
+          reps: '6 each',
+          rest: '60s',
+          cue: 'Rotate through the hips, not the lower back. Both sides evenly.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Acceleration & Change of Direction',
+        pap: 'Speed is a skill. Full recovery between reps — a tired sprint teaches you to be slow.',
+        exercises: [{
+          name: '5m Sprint from Standing Start',
+          sets: '8',
+          reps: '5m',
+          rest: '90s',
+          cue: 'Three hard steps. Forward lean, violent arm drive. Almost every netball sprint is this short — log every time.',
+          cardio: true
+        }, {
+          name: '10m Acceleration',
+          sets: '6',
+          reps: '10m',
+          rest: '2 min',
+          cue: 'Build on the 5m. Stay low through the first five steps, do not pop up early.',
+          cardio: true
+        }, {
+          name: 'Reactive Shuffle to Sprint',
+          sets: '6',
+          reps: '1',
+          rest: '90s',
+          cue: 'React to a call or a point — shuffle 3m, then sprint 8m. React, do not anticipate.',
+          cardio: true
+        }, {
+          name: 'Broad Jump',
+          sets: '5',
+          reps: '3',
+          rest: '90s',
+          cue: 'Max distance, stick the landing. Measure it — horizontal power is what the lead runs on.'
+        }]
+      }]
+    }, {
+      name: 'Block 2',
+      subtitle: 'PAP Contrast — Weeks 5-8',
+      warmup: '10 min: dynamic flow → pogo jumps x20, 6 lateral bounds each, 3 x 20m build-ups to 90% → 2 ramping sets of the first lift',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Lower PAP Contrast',
+        pap: 'Heavy lift first → 3-4 min rest → explosive jump. The heavy load switches the nervous system on for the jump that follows. Do not rush the rest.',
+        exercises: [{
+          name: 'Back Squat (heavy)',
+          sets: '4',
+          reps: '3',
+          rest: '3-4 min',
+          cue: 'Around 85%. Fast intent out of the bottom. This is the potentiator, not the session.'
+        }, {
+          name: '→ Box Jump (CONTRAST)',
+          sets: '4',
+          reps: '4',
+          rest: '3 min',
+          cue: 'Straight after the squat rest. You should feel springier than normal — that is the point.'
+        }, {
+          name: 'Trap Bar Jump',
+          sets: '4',
+          reps: '4',
+          rest: '2 min',
+          cue: 'Light load, maximum height. Land soft, reset, go again.'
+        }, {
+          name: 'Hurdle Hop to Stick',
+          sets: '4',
+          reps: '4',
+          rest: '2 min',
+          cue: 'Stick the last landing for two full seconds. Stop the set when the landings get noisy.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Upper PAP Contrast',
+        pap: 'Heavy press potentiates explosive pushing. Give it the full 3-4 min transition or you get the fatigue without the benefit.',
+        exercises: [{
+          name: 'Push Press (heavy)',
+          sets: '4',
+          reps: '3',
+          rest: '3-4 min',
+          cue: 'Around 85%. Strong leg drive, lock it out overhead.'
+        }, {
+          name: '→ Med Ball Chest Pass (CONTRAST)',
+          sets: '4',
+          reps: '5',
+          rest: '3 min',
+          cue: 'Immediately after the press rest. Measure the distance — it should beat your Block 1 number.'
+        }, {
+          name: 'Med Ball Rotational Throw',
+          sets: '4',
+          reps: '5 each',
+          rest: '90s',
+          cue: 'Hips lead, trunk follows. This is the shoulder pass under pressure.'
+        }, {
+          name: 'Chest-Supported Row',
+          sets: '3',
+          reps: '8',
+          rest: '90s',
+          cue: 'Keeps the back honest while the pressing volume is high.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Speed & Reactive Agility',
+        pap: 'CNS fatigue kills speed adaptations. If the times drop off, the session is over — no heroics.',
+        exercises: [{
+          name: 'Resisted Sprint (band)',
+          sets: '6',
+          reps: '10m',
+          rest: '2 min',
+          cue: 'Partner or band resistance. Exaggerated forward lean, drive the knees. Feel the acceleration position.',
+          cardio: true
+        }, {
+          name: 'Sprint Acceleration (10m)',
+          sets: '6',
+          reps: '10m',
+          rest: '2 min',
+          cue: 'Unresisted straight after the resisted set. Should feel effortless by comparison.',
+          cardio: true
+        }, {
+          name: 'Reactive 5-10-5',
+          sets: '6',
+          reps: '1',
+          rest: '90s',
+          cue: 'Direction called on the whistle. Plant hard, drive out. Log every time.',
+          cardio: true
+        }, {
+          name: 'Mirror Drill (1v1)',
+          sets: '6',
+          reps: '15s',
+          rest: '60s',
+          cue: 'Live in a 5m box. Competitive. This is the session where you find out who can actually move.',
+          cardio: true
+        }]
+      }]
+    }, {
+      name: 'Block 3',
+      subtitle: 'Peak Power & Testing — Weeks 9-12',
+      warmup: '12 min: full dynamic prep → pogo jumps, bounds, 3 x 20m build-ups, 2 x 10m accelerations at 95%. Arrive at the first set fully switched on.',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Maximum Power — Lower',
+        pap: 'Push to max outputs. Track jump height and broad jump distance against Block 1 — this is where you prove the block worked.',
+        exercises: [{
+          name: 'Countermovement Jump (CMJ)',
+          sets: '5',
+          reps: '3',
+          rest: '2 min',
+          cue: 'Retest. Compare straight against your Block 1 number.'
+        }, {
+          name: 'Depth Jump',
+          sets: '4',
+          reps: '4',
+          rest: '2-3 min',
+          cue: 'From a 30cm box: drop, land, jump instantly. Minimum ground contact. Full recovery between sets.'
+        }, {
+          name: 'Back Squat (heavy)',
+          sets: '3',
+          reps: '3',
+          rest: '3 min',
+          cue: 'Maintenance strength at speed. Fast bar, stop well short of failure.'
+        }, {
+          name: 'Broad Jump',
+          sets: '4',
+          reps: '3',
+          rest: '2 min',
+          cue: 'Retest. Measure and log — horizontal power for the lead.'
+        }, {
+          name: 'Copenhagen Plank',
+          sets: '2',
+          reps: '25s each',
+          rest: '45s',
+          cue: 'Groin maintenance while the high-intensity work peaks.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Maximum Power — Upper',
+        pap: 'Measure the med ball throw. Power should be visibly up on Block 1 or something in the plan needs changing.',
+        exercises: [{
+          name: 'Med Ball Chest Pass',
+          sets: '5',
+          reps: '4',
+          rest: '2 min',
+          cue: 'Retest for distance. Full intent, full recovery.'
+        }, {
+          name: 'Push Press',
+          sets: '4',
+          reps: '3',
+          rest: '3 min',
+          cue: 'Heavy and fast. Log the weight.'
+        }, {
+          name: 'Push-Up Clap',
+          sets: '4',
+          reps: '5',
+          rest: '90s',
+          cue: 'Explosive, land soft with bent elbows. Drop to an incline if the landings get heavy.'
+        }, {
+          name: 'Pull-Up (weighted)',
+          sets: '4',
+          reps: '4',
+          rest: '2-3 min',
+          cue: 'Explosive up. Contest strength comes from here.'
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Maintenance.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Game Speed & Benchmarks',
+        pap: 'Time everything. These are the numbers you carry into the season and retest next cycle.',
+        exercises: [{
+          name: '5m Sprint Retest',
+          sets: '6',
+          reps: '5m',
+          rest: '2 min',
+          cue: 'Same protocol as Block 1. This is the headline number for a netballer.',
+          cardio: true
+        }, {
+          name: '10m Acceleration Sprint',
+          sets: '5',
+          reps: '10m',
+          rest: '2 min',
+          cue: 'Retest. Log it.',
+          cardio: true
+        }, {
+          name: 'Reactive T-Drill',
+          sets: '5',
+          reps: '1',
+          rest: '90s',
+          cue: 'Direction called live. Agility under decision-making, which is how it happens in a game.',
+          cardio: true
+        }, {
+          name: 'Centre Pass Simulation',
+          sets: '6',
+          reps: '1',
+          rest: '60s',
+          cue: 'Full speed, game-realistic: lead, plant, re-lead, receive, land, pivot. Finish the block on the actual skill.',
+          cardio: true
         }]
       }]
     }]
