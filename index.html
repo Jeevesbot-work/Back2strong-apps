@@ -37,7 +37,7 @@ h1,h2,h3,h4{font-family:'Bebas Neue',sans-serif;letter-spacing:0.05em;}
 @media(max-width:500px){.prog-grid{grid-template-columns:1fr;}}
 .prog-card{background:var(--navy-m);border:1px solid var(--navy-l);border-radius:8px;padding:16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
 .prog-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--gold);}
-.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}
+.prog-card.sizeStrength::before{background:#8B2236;}.prog-card.strengthPower::before{background:var(--gold);}.prog-card.power::before{background:#E07B39;}.prog-card.conditioning::before{background:#2D6A4F;}.prog-card.netballConditioning::before{background:#3E7CA6;}
 .prog-card:hover{border-color:var(--gold);transform:translateY(-2px);}
 .prog-card h3{font-size:20px;margin-bottom:3px;}
 .prog-card p{font-size:12px;color:var(--grey);font-family:'Barlow Condensed';text-transform:uppercase;}
@@ -2076,6 +2076,420 @@ const PROGRAMMES = {
         }]
       }]
     }]
+  },
+  netballConditioning: {
+    id: 'netballConditioning',
+    name: 'Netball Conditioning',
+    subtitle: 'Court Engine, Footwork & Landing',
+    color: '#3E7CA6',
+    badge: 'Netball',
+    info: {
+      sessions: '4-5 / week',
+      duration: '45-60 min',
+      focus: 'Aerobic base, repeat high-intensity effort, change of direction, landing mechanics'
+    },
+    blocks: [{
+      name: 'Block 1',
+      subtitle: 'Base & Landing Mechanics — Weeks 1-4',
+      warmup: '5 min easy bike or court jog → dynamic: leg swings x10 each, hip circles x10, ankle rocks x10 each, walking lunge with rotation x8, 10 pogo hops, 10 A-skips',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Gym — Steady State Aerobic',
+        exercises: [{
+          name: 'Concept2 Rower',
+          sets: '1',
+          reps: '18 min',
+          rest: '—',
+          cue: 'Rate 22-24 strokes/min. HR 140-155bpm. Split target: taller athletes 2:15-2:25/500m, lighter athletes 2:05-2:20/500m. Log your actual split.',
+          cardio: true
+        }, {
+          name: 'Assault Bike',
+          sets: '1',
+          reps: '10 min',
+          rest: '—',
+          cue: 'Moderate effort — you should still be able to hold a conversation. If you are mouth-breathing within 2 min you are going too hard. Log RPM or calories.',
+          cardio: true
+        }, {
+          name: 'Ankle Stiffness Pogos',
+          sets: '3',
+          reps: '30s',
+          rest: '45s',
+          cue: 'Straight legs, bounce off the balls of the feet, minimum ground contact. This is the ankle you will land on in a game — build it now.'
+        }, {
+          name: 'Calf Raise (single leg)',
+          sets: '3',
+          reps: '12 each',
+          rest: '60s',
+          cue: 'Full range, 2s pause at the top, slow lower. Netball lands through the calf and achilles more than any other school sport.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Gym — Tempo Intervals',
+        exercises: [{
+          name: 'Rower 250m Intervals',
+          sets: '10',
+          reps: '250m',
+          rest: '60s',
+          cue: 'Hard but repeatable — every rep within 3s of the first. If rep 8 falls apart you went out too fast. Log your average split.',
+          cardio: true
+        }, {
+          name: 'Assault Bike 30/60',
+          sets: '10',
+          reps: '30s hard',
+          rest: '60s',
+          cue: '30s at 85% then 60s easy spin. Do not stop pedalling in the rest. Log total calories.',
+          cardio: true
+        }, {
+          name: 'Core: Pallof Press',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Ribs down, resist the rotation. Netball is a one-arm, twisted-trunk sport — the anti-rotation work is not optional.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Court — Footwork & Landing Mechanics',
+        exercises: [{
+          name: 'Two-Foot Stick Landing',
+          sets: '4',
+          reps: '6',
+          rest: '60s',
+          cue: 'Drop from a 30cm box, land on both feet, stick it for 3 full seconds. Knees track over toes, hips back, no wobble. Reset if you have to step.'
+        }, {
+          name: 'Single-Leg Stick Landing',
+          sets: '4',
+          reps: '5 each',
+          rest: '60s',
+          cue: 'Same drill, one leg. This is the landing that tears ACLs in netball — own it slowly before you do it at speed. Knee must not collapse inwards.'
+        }, {
+          name: 'Landing Foot Pivot Drill',
+          sets: '4',
+          reps: '8 each',
+          rest: '45s',
+          cue: 'Receive, land one-two, plant the landing foot and pivot 180° without lifting it. Footwork rule under fatigue is where free passes get given away.',
+          cardio: true
+        }, {
+          name: 'Step-Close Shuffle (ladder)',
+          sets: '6',
+          reps: '1 length',
+          rest: '30s',
+          cue: 'Defensive shuffle down the ladder, hips low, feet never cross. Both directions, alternating reps.',
+          cardio: true
+        }]
+      }, {
+        name: 'Session D',
+        focus: 'Court — Change of Direction',
+        exercises: [{
+          name: '5-10-5 Shuttle',
+          sets: '8',
+          reps: '1',
+          rest: '45s',
+          cue: 'Sprint 5m, touch, 10m back, touch, 5m through. Plant the outside foot hard and drive. Log time for every rep — all 8 should be within 0.5s.',
+          cardio: true
+        }, {
+          name: 'T-Drill',
+          sets: '6',
+          reps: '1',
+          rest: '60s',
+          cue: '5m forward to centre cone, 5m left shuffle, 10m right shuffle, 5m left back to centre, backpedal 5m. Stay low, no crossing feet on the shuffle. Log time.',
+          cardio: true
+        }, {
+          name: 'Third-to-Third Shuttles',
+          sets: '8',
+          reps: '1',
+          rest: '45s',
+          cue: 'Baseline to first third line and back, then to centre third line and back. Touch every line. Netball court distances — this is the exact demand of a centre pass.',
+          cardio: true
+        }, {
+          name: 'Reactive Shuffle to Sprint',
+          sets: '8',
+          reps: '1',
+          rest: '45s',
+          cue: 'Partner or coach points left or right — shuffle 3m that way, then sprint 8m forward on the whistle. React, do not guess.',
+          cardio: true
+        }]
+      }, {
+        name: 'Session E',
+        focus: 'Court — Acceleration & Jump Baseline',
+        exercises: [{
+          name: '5m Sprint from Standing Start',
+          sets: '8',
+          reps: '5m',
+          rest: '60s',
+          cue: 'First three steps only — forward lean, hard arm drive. Almost every netball sprint is under 5m. This is your Block 1 baseline, log every time.',
+          cardio: true
+        }, {
+          name: 'Lateral Bound to Sprint',
+          sets: '6',
+          reps: '3 each',
+          rest: '90s',
+          cue: 'Bound sideways, stick the landing for one second, then sprint 5m forward. Land, control, go.'
+        }, {
+          name: 'Countermovement Jump (CMJ)',
+          sets: '5',
+          reps: '1',
+          rest: '60s',
+          cue: 'Max vertical from a standing start, arms free. Record your best — this is your Block 1 jump benchmark and it should improve by Block 3.'
+        }, {
+          name: 'Box Jump (step down)',
+          sets: '4',
+          reps: '5',
+          rest: '90s',
+          cue: 'Jump up, STEP down every time. Never jump off the box — all the risk and none of the benefit.'
+        }]
+      }]
+    }, {
+      name: 'Block 2',
+      subtitle: 'Repeat Effort & Agility — Weeks 5-8',
+      warmup: '5 min bike → dynamic: world\'s greatest stretch x5 each, lateral lunge x8 each, 10 pogo hops, 10 A-skips, 2 x 20m build-up runs at 70% then 85%',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Gym — Repeat Sprint Machine Work',
+        exercises: [{
+          name: 'Assault Bike 15/45',
+          sets: '12',
+          reps: '15s max',
+          rest: '45s',
+          cue: 'All-out 15s, 45s easy spin. Reps 9-12 are the session — that is the fourth quarter. Log calories on rep 1 and rep 12, the drop-off should be under 15%.',
+          cardio: true
+        }, {
+          name: 'Rower 100m Sprints',
+          sets: '10',
+          reps: '100m',
+          rest: '60s',
+          cue: 'Full effort, hard catch. Log every split — consistency beats a fast first rep.',
+          cardio: true
+        }, {
+          name: 'Core: Dead Bug',
+          sets: '3',
+          reps: '10 each',
+          rest: '45s',
+          cue: 'Lower back stays flat throughout. Slow and deliberate.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Gym — Mixed Modal Circuit',
+        exercises: [{
+          name: 'Circuit: Bike / Rower / Ski',
+          sets: '4',
+          reps: '3 min per round',
+          rest: '90s',
+          cue: '60s hard on each machine back to back, no rest between machines. 90s rest between rounds. Log total calories per round.',
+          cardio: true
+        }, {
+          name: 'Copenhagen Plank',
+          sets: '3',
+          reps: '20s each',
+          rest: '45s',
+          cue: 'Groin strength — netball changes direction off the inside leg constantly. Build up from bent-knee to straight-leg.'
+        }, {
+          name: 'Nordic Hamstring Curl',
+          sets: '3',
+          reps: '6',
+          rest: '2 min',
+          cue: 'Control the descent as far as you can then catch yourself. Hamstring insurance for the decelerations.'
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Court — Repeat High-Intensity Effort',
+        exercises: [{
+          name: 'Centre Pass Simulation',
+          sets: '10',
+          reps: '1',
+          rest: '35s',
+          cue: 'From the centre third: 5m hard lead, plant, 3m re-lead the other way, receive, land and pivot. This is the most repeated action in a netball game — train it fatigued.',
+          cardio: true
+        }, {
+          name: 'Court Length Repeat Sprints',
+          sets: '10',
+          reps: '30m',
+          rest: '30s',
+          cue: 'Baseline to baseline. The 30s rest is deliberate and it is not enough — that is the point. Log times, drop-off under 10%.',
+          cardio: true
+        }, {
+          name: 'Defensive Shuffle Blocks',
+          sets: '8',
+          reps: '20s',
+          rest: '40s',
+          cue: '20s continuous step-close shuffle over 3m, hips low, arms up over a live attacker if you have one. No crossed feet, no standing up.',
+          cardio: true
+        }, {
+          name: 'Rebound Jump Series',
+          sets: '6',
+          reps: '4 jumps',
+          rest: '60s',
+          cue: 'Four consecutive max jumps contesting a ball, landing balanced every time. Control on landing four matters more than height on jump one.'
+        }]
+      }, {
+        name: 'Session D',
+        focus: 'Court — Reactive Agility Under Fatigue',
+        exercises: [{
+          name: 'Mirror Drill (1v1)',
+          sets: '8',
+          reps: '20s',
+          rest: '40s',
+          cue: 'Attacker leads, defender mirrors inside a 5m box. Live, reactive, no pre-planned pattern. Swap roles each rep.',
+          cardio: true
+        }, {
+          name: '4-Cone Box Drill (5m x 5m)',
+          sets: '8',
+          reps: '1',
+          rest: '45s',
+          cue: 'Sprint, shuffle, backpedal, shuffle around the box. Clockwise then anti-clockwise, alternating reps. Sharp 90° turns. Log time.',
+          cardio: true
+        }, {
+          name: 'Deceleration Drill (10m in, stop)',
+          sets: '8',
+          reps: '1',
+          rest: '45s',
+          cue: 'Sprint 10m then stop dead inside two steps and hold for 2s. Stopping is the skill the footwork rule demands — most netball injuries happen slowing down, not speeding up.',
+          cardio: true
+        }, {
+          name: 'Landmine Anti-Rotation',
+          sets: '3',
+          reps: '8 each',
+          rest: '60s',
+          cue: 'Slow and controlled, ribs down. Shoulder and trunk armour for one-handed catching.'
+        }]
+      }, {
+        name: 'Session E',
+        focus: 'Court — Plyometric & Landing Progression',
+        exercises: [{
+          name: 'Hurdle Hops (30cm)',
+          sets: '5',
+          reps: '5',
+          rest: '90s',
+          cue: 'Two-foot, minimal ground contact, stick the final landing. Quality over quantity — stop the set when contact time gets slow.'
+        }, {
+          name: 'Single-Leg Lateral Hop & Stick',
+          sets: '4',
+          reps: '5 each',
+          rest: '90s',
+          cue: 'Hop sideways, stick for 2s. Knee must stay over the toe. If it collapses inwards, reduce the distance.'
+        }, {
+          name: 'Depth Jump to Vertical',
+          sets: '4',
+          reps: '5',
+          rest: '2 min',
+          cue: 'From a 30cm box: drop, land, and immediately jump as high as possible. Minimum time on the ground. Full recovery between sets.'
+        }, {
+          name: 'Bounding for Distance',
+          sets: '4',
+          reps: '6 each',
+          rest: '90s',
+          cue: 'Exaggerated single-leg bounds, drive the knee, land soft and go again.'
+        }]
+      }]
+    }, {
+      name: 'Block 3',
+      subtitle: 'In-Season Match Intensity — Weeks 9-12',
+      warmup: '5 min bike → dynamic flow x2 rounds: 10 ankle rocks, 8 lateral lunge, 6 single-leg RDL reach, 10 pogo hops → 3 x 20m build-ups to 90%',
+      sessions: [{
+        name: 'Session A',
+        focus: 'Gym — Peak Intensity Intervals',
+        exercises: [{
+          name: 'Assault Bike 20/40',
+          sets: '14',
+          reps: '20s max',
+          rest: '40s',
+          cue: 'Match-intensity work-to-rest ratio. Hold your calorie target across all 14 — the last four are the ones that count.',
+          cardio: true
+        }, {
+          name: 'Rower 4 x 4 min',
+          sets: '4',
+          reps: '4 min',
+          rest: '2 min',
+          cue: 'Hard sustained effort, negative split each rep. HR should reach 90% by minute two. Log your splits.',
+          cardio: true
+        }, {
+          name: 'Core Finisher: Hollow Body Hold',
+          sets: '3',
+          reps: '30s',
+          rest: '45s',
+          cue: 'Lower back pinned to the floor. If it lifts, bend the knees.'
+        }]
+      }, {
+        name: 'Session B',
+        focus: 'Court — Quarter Simulation',
+        exercises: [{
+          name: 'Quarter Sim (12 min intermittent)',
+          sets: '4',
+          reps: '12 min',
+          rest: '3 min',
+          cue: 'Continuous random work: 2-5s efforts of lead, shuffle, jump and decelerate with short recoveries, exactly as a quarter plays out. Log RPE 1-10 for each quarter.',
+          cardio: true
+        }, {
+          name: 'Position-Specific Leads',
+          sets: '8',
+          reps: '30s',
+          rest: '60s',
+          cue: 'GA and GS work the circle edge and drive. C and WA work the transverse lines. GD and GK shadow and contest. Train the job you actually do.',
+          cardio: true
+        }, {
+          name: 'Mobility Flush',
+          sets: '1',
+          reps: '8 min',
+          rest: '—',
+          cue: 'Hip flexors, calves, thoracic rotation, hamstring floss. 45s per position. Do it properly.',
+          cardio: true
+        }]
+      }, {
+        name: 'Session C',
+        focus: 'Court — Speed & Agility Maintenance',
+        exercises: [{
+          name: '5m Sprint Retest',
+          sets: '6',
+          reps: '5m',
+          rest: '90s',
+          cue: 'Same protocol as Block 1. Compare against your baseline — this is the proof the block worked.',
+          cardio: true
+        }, {
+          name: 'Countermovement Jump Retest',
+          sets: '5',
+          reps: '1',
+          rest: '60s',
+          cue: 'Max vertical, arms free. Compare against your Block 1 number.'
+        }, {
+          name: '5-10-5 Shuttle Retest',
+          sets: '6',
+          reps: '1',
+          rest: '60s',
+          cue: 'Same protocol as Block 1. Log times and check them against Week 1.',
+          cardio: true
+        }, {
+          name: 'Reactive Mirror Finisher',
+          sets: '6',
+          reps: '15s',
+          rest: '45s',
+          cue: 'Live 1v1 in a 4m box. Short, sharp, competitive. Finish on a win.',
+          cardio: true
+        }]
+      }, {
+        name: 'Session D',
+        focus: 'Recovery & Maintenance',
+        exercises: [{
+          name: 'Assault Bike Easy',
+          sets: '1',
+          reps: '15 min',
+          rest: '—',
+          cue: '60-70 RPM, very low resistance. HR under 130bpm. Flush the legs between fixtures — do not skip this.',
+          cardio: true
+        }, {
+          name: 'Landing Mechanics Refresher',
+          sets: '3',
+          reps: '5 each',
+          rest: '60s',
+          cue: 'Single-leg stick landings, low intensity, perfect technique. Keeps the pattern sharp when match volume is high.'
+        }, {
+          name: 'Mobility Circuit',
+          sets: '1',
+          reps: '10 min',
+          rest: '—',
+          cue: 'Ankles, hip flexors (90/90), quads, thoracic rotation over a foam roller. 45s per position.',
+          cardio: true
+        }]
+      }]
+    }]
   }
 };
 const POSITIONS = [{
@@ -2719,7 +3133,7 @@ function NutritionTab() {
 }
 
 // ── LOGIN ─────────────────────────────────────────────────────────────────────
-const SQUADS = ['1st XV', '2nd XV', 'U18A', 'U18B', 'U16A', 'U16B', 'U15', 'U14', 'Development'];
+const SQUADS = ['1st XV', '2nd XV', 'U18A', 'U18B', 'U16A', 'U16B', 'U15', 'U14', 'Development', 'Netball 1st VII', 'Netball 2nd VII', 'Netball U18', 'Netball U16', 'Netball U15', 'Netball U14'];
 function LoginScreen({
   onLogin
 }) {
